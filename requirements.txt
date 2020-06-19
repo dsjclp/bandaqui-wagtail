@@ -1,0 +1,14 @@
+django
+django-authtools
+easy-thumbnails
+pytz
+django-location-field
+django-widget-tweaks
+django-location-field
+django-bootstrap-modal-forms
+wagtail
+wagtail_simple_gallery
+wagtailmenus
+wagtail-eventcalendar
+wagtail-blog
+wagtail-blocks

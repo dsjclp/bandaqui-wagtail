@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+
+{% image page.carouselimage1 width-800 as carouselphoto1 %}
+{% image page.carouselimage2 width-800 as carouselphoto2 %}
+{% image page.carouselimage3 width-800 as carouselphoto3 %}
+{% image page.cardimage1 width-800 as cardphoto1 %}
+{% image page.cardimage2 width-800 as cardphoto2 %}
+{% image page.cardimage3 width-800 as cardphoto3 %}
+
+<header>
+  <div id="carouselExampleIndicators" class="carousel carousel-fade slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <!-- Slide One - Set the background image for this slide in the line below -->
+      <div class="carousel-item active" style="background-image: url({{carouselphoto1.url}});">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>{{ page.carouseltext1|richtext }}</h3>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+      <!-- Slide Two - Set the background image for this slide in the line below -->
+      <div class="carousel-item" style="background-image: url({{carouselphoto2.url}});">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>{{ page.carouseltext2|richtext }}</h3>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+      <!-- Slide Three - Set the background image for this slide in the line below -->
+      <div class="carousel-item" style="background-image: url({{carouselphoto3.url}});">
+        <div class="carousel-caption d-none d-md-block">
+          <h3>{{ page.carouseltext3|richtext }}</h3>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</header>
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <h1 class="my-4">Bienvenue sur le site de la Band&rsquo;Aqui</h1>
+
+
+    <!-- Portfolio Section -->
+
+    <div class="card-deck">
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100 shadow-lg">
+          {% image page.cardimage1 width-400 as cardphoto1 %}
+          <img src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }}"
+            height="{{ cardphoto1.height }}" alt="{{ cardphoto1.alt }}" class="card-img-top" />
+          <div class="card-body">
+            <p class="card-text">{{ page.cardtext1|richtext }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100 shadow-lg">
+          {% image page.cardimage2 width-400 as cardphoto2 %}
+          <img src="{{ cardphoto2.url }}" width="{{ cardphoto2.width }}"
+            height="{{ cardphoto2.height }}" alt="{{ cardphoto2.alt }}" class="card-img-top" />
+          <div class="card-body">
+            <p class="card-text">{{ page.cardtext2|richtext }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100 shadow-lg">
+          {% image page.cardimage3 width-400 as cardphoto3 %}
+          <img src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }}"
+            height="{{ cardphoto3.height }}" alt="{{ cardphoto3.alt }}" class="card-img-top" />
+          <div class="card-body">
+            <p class="card-text">{{ page.cardtext3|richtext }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Call to Action Section -->
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <p>{{ page.invitation }}</p>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-lg btn-secondary btn-block login-btn" href="#">Connexion</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

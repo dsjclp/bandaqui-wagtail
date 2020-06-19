@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags home_tags %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+{% image page.image width-800 as photo %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Espace Membres
+      <small>réservé</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <!-- Intro Content -->
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid rounded mb-4 shadow-lg" src="{{ photo.url }}" width="{{ photo.width }} alt="">
+    
+      </div>
+      <div class="col-lg-6">
+        {{ page.introduction }}
+        {{ page.info | richtext }}
+	</div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Team Members -->
+    <h2>Vos options</h2>
+
+    <div class="row">
+      {% with blocks=self.body %}
+
+      {% for block in blocks %}
+
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 text-center">
+          <img class="card-img-top" src="http://placehold.it/750x450" alt="">
+          <div class="card-body">
+                   <section class="block-{{ block.block_type }}">
+                       {{ block }}
+                   </section>
+          </div>
+          <div class="card-footer">
+            {{ block.block_type }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+        
+      {% endwith %}
+    </div>
+    <!-- /.row -->
+
+
+{% else %}
+
+<li class="nav-item active">
+  <button type="button" class="btn btn-outline-warning login-btn">Connexion</button>
+  </li>
+
+<h5 class="center-align">Merci de vous <a href="{% url 'login' %}" >identifier </a>pour accéder à cette page.</h5>
+{% endif %}
+
+
+
+
+
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

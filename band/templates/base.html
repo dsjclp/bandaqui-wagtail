@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>
+    {% block title %}
+        {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+    {% endblock %}
+    {% block title_suffix %}
+        {% with self.get_site.site_name as site_name %}
+            {% if site_name %}- {{ site_name }}{% endif %}
+        {% endwith %}
+    {% endblock %}
+  </title>
+
+  {% load static %}
+
+  {# Global stylesheets #}
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles  -->
+  <link rel="stylesheet" href="{% static 'css/modern-business.css' %}" rel="stylesheet">
+
+  <!-- Openstreetmap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+      
+  <!-- Fullcalendar -->
+  <link rel="stylesheet" href="{% static 'css/all.css' %}" rel="stylesheet"> 
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}" rel="stylesheet"> 
+  <link rel="stylesheet" href="{% static 'css/kerk.css' %}" rel="stylesheet"> 
+  <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}" rel="stylesheet"> 
+
+  <!-- Gallery -->
+  <link rel="stylesheet" href="{% static 'css/baguetteBox.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/simple-gallery.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/simple-gallery-admin.css' %}" rel="stylesheet">
+  
+  {% load wagtailcore_tags %}
+  {% load menu_tags %}
+
+
+  {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+  {% endblock %}
+  
+</head>
+
+<body>
+
+{% block header %}
+
+  {# Header contains the main_navigation block #}
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="">Band&rsquo;Aqui</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {% main_menu max_levels=3 add_sub_menus_inline=True template="main_menu.html" %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+{% endblock header %}
+
+<!-- Page Content -->
+<div class="container">
+
+  {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+</div>
+<!-- /.container -->
+
+{% block content %}{% endblock content %}
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Band&rsquo;Aqui 2020</p>
+  </div>
+  <!-- /.container -->
+</footer>
+    
+{# Global javascript #}
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Openstreetmap-->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin= <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Modal form -->
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+
+<!-- Full Calendar -->
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/fullcalendar.min.js' %}"></script>
+
+<!-- Gallery -->
+<script src="{% static 'js/baguetteBox.min.js' %}"></script>
+
+<!-- Messages -->
+<script>
+  $(function () {
+  // Hide message
+  $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert").slideUp(500);});
+  });
+</script>
+
+<script type="text/javascript">
+  $(function () {
+    // Log in button
+    $(".login-btn").modalForm({formURL: "{% url 'home:login' %}"});
+  });
+</script>
+
+{% block extra_js %}{% endblock %}
+
+</body>   
+</html>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags home_tags %}
+
+{% block content %}
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ self.title }}
+      <small>Subheading</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <div class="row">
+        {% partitions %}
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+{% endblock content %}

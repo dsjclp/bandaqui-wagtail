@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags  home_tags %}
+
+{% block content %}
+
+
+{% image page.cardimage1 width-800 as cardphoto1 %}
+{% image page.cardimage2 width-800 as cardphoto2 %}
+{% image page.cardimage3 width-800 as cardphoto3 %}
+{% image page.cardimage4 width-800 as cardphoto4 %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ page.title }}
+      <small>{{ page.introduction }}</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <article>
+      {% for block in page.body %}
+          {% if block.block_type == 'heading' %}
+              <h1>{{ block.value }}</h1>
+          {% else %}
+              <section class="block-{{ block.block_type }}">
+                  {% include_block block %}
+              </section>
+          {% endif %}
+          <hr>
+      {% endfor %}
+    </article>
+
+
+
+  </div>
+  <!-- /.container -->
+
+
+{% endblock %}

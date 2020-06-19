@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% load home_tags %}
+
+{% block content %}
+
+ <!-- Page Content -->
+ <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Contact landing
+      <small>Subheading</small>
+    </h1>
+
+    {% if self.get_ancestors|length > 1 %}
+    <ol class="breadcrumb">
+    {% for page in self.get_ancestors %}
+    {% if page.is_root == False %}
+    <li class="breadcrumb-item"><a href=”{% pageurl page %}”>{{ page.title }}</a></li>
+    {% endif %}
+    {% endfor %}
+    <li class="breadcrumb-item active">{{ self.title }}</li>
+    </ol>
+    {% endif %}
+
+    
+    <div class="row">
+
+      {% if page.profile_image %}
+      {% image page.profile_image original as profile_image %}
+      <img src="{{ profile_image.url }}" class="img-fluid mb-5 d-block mx-auto rounded-circle">
+    {% else %}
+      <img class="img-fluid mb-5 d-block mx-auto rounded-circle" src="{% static 'freelancer/img/profile.png' %}" alt="">
+    {% endif %}
+    
+    <h1 class="text-uppercase mb-0">{{ page.title }}</h1>
+    <hr class="star-light">
+    <h2 class="font-weight-light mb-0">
+        {{ page.subtitle }}
+    </h2>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+{% endblock %}

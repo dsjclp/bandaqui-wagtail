@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% load home_tags %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+ <!-- Page Content -->
+ <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ self.body }}
+      <small></small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <div class="row">
+      <div class="col-lg-8 mb-4">
+        <h3>{{page.intro |richtext}}</h3>
+        <form action="{% pageurl page %}" method="POST">
+          {% csrf_token %}
+      
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+              {% for error in form.non_field_errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+      
+          {% for field in form.visible_fields %}
+            <div class="form-group">
+              <h4>{{ field.label_tag }}</h4>
+              {% render_field field class+="form-control shadow-lg" %}
+            </div>
+          {% endfor %}
+      
+          <button type="submit" class="btn btn-primary" >Envoi</button>
+      </form>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+ <!-- Page Content -->
+ <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ page.title }}
+      <small>Subheading3</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    {% include 'blog/blog_post.html' with blog=self %}
+    {% if COMMENTS_APP == 'django_comments_xtd' %}
+        {% include 'blog/blog_post_comments_xtd.html' with blog=self %}
+    {% endif %}
+    </div>
+{% endblock %}

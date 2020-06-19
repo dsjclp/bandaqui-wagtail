@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags i18n %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% load home_tags %}
+
+{% block content %}
+
+ <!-- Page Content -->
+ <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Contact
+      <small>Subheading</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <!-- Content Row -->
+    <div class="row">
+      <!-- Map Column -->
+      <div id='calendar' class="col-lg-8 mb-4">
+
+
+    </div>
+      <!-- Contact Details Column -->
+      <div class="col-lg-4 mb-4">
+        <h3>Contact Details</h3>
+        <p>
+          3481 Melrose Place
+          <br>Beverly Hills, CA 90210
+          <br>
+        </p>
+        <p>
+          <abbr title="Phone">P</abbr>: (123) 456-7890
+        </p>
+        <p>
+          <abbr title="Email">E</abbr>:
+          <a href="mailto:name@example.com">name@example.com
+          </a>
+        </p>
+        <p>
+          <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
+        </p>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+{% endblock content %}
+
+{% block extra_js %}
+
+<script>
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            header: {center: 'month,agendaWeek,upcoming'},
+            timeFormat: 'H(:mm)',
+            nowIndicator: true,
+            timezone: 'Europe/Paris', //Change as necessary
+            eventColor: "#f8f9fa", //Change as necessary
+            eventTextColor: "#9c27b0", //Change as necessary
+            views: {
+                upcoming: {
+                    type: 'list',
+                    duration: {months: 6},
+                    buttonText: 'A venir', //translate as necessary
+                    validRange: function (nowDate) {
+                        return {
+                            start: nowDate,
+                            end: nowDate.clone().add(6, 'months')
+                        };
+                    }
+                }
+            },
+            // put your options and callbacks here
+            events: '{{ page.get_url }}events/',
+
+        eventClick: function(event) {
+        //if you want to open url in the same tab
+        location.href = 'events/'+page.slug;
+        //if you want to open url in another window / tab, use the commented code below
+        //window.open(event.url);
+        //window.open('animation/event/'+event.id);
+        return false;
+            }
+        })
+    });
+</script>
+{% endblock %}

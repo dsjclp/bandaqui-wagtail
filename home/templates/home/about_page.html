@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags  home_tags %}
+
+
+{% block content %}
+
+
+{% image page.cardimage1 width-800 as cardphoto1 %}
+{% image page.cardimage2 width-800 as cardphoto2 %}
+{% image page.cardimage3 width-800 as cardphoto3 %}
+{% image page.cardimage4 width-800 as cardphoto4 %}
+
+ <!-- Page Content -->
+ <div class="container">
+
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">A propos de nous
+    <small>Subheading</small>
+  </h1>
+
+  {% include 'breadcrumb.html' %}
+
+  <!-- Intro Content -->
+  <div class="row">
+    <div class="col-lg-6">
+      <img class="img-fluid rounded mb-4 shadow-lg" src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }} alt="">
+    </div>
+    <div class="col-lg-6">
+      {{ page.cardtext1|richtext }}
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Team Members -->
+  <h2>Our Team</h2>
+
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100 text-center shadow-lg">
+        <img class="card-img-top" src="{{ cardphoto2.url }}" width="{{ cardphoto2.width }} alt="">
+        <div class="card-body">
+          {{ page.cardtext2|richtext }}
+        </div>
+        <div class="card-footer">
+          <a href="#">name@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100 text-center shadow-lg">
+        <img class="card-img-top" src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }} alt="">
+        <div class="card-body">
+          <h4 class="card-title">Team Member</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Position</h6>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
+        </div>
+        <div class="card-footer">
+          <a href="#">name@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100 text-center shadow-lg">
+        <img class="card-img-top" src="{{ cardphoto4.url }}" width="{{ cardphoto4.width }} alt="">
+        <div class="card-body">
+          <h4 class="card-title">Team Member</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Position</h6>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
+        </div>
+        <div class="card-footer">
+          <a href="#">name@example.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
+
+
+      <!-- Call to Action Section -->
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <p>{{ page.invitation }}</p>
+        </div>
+        <div class="col-md-4">
+          <a class="btn btn-lg btn-secondary btn-block" 
+          data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">Les musiciens</a>
+        </div>
+      </div>
+
+  <!-- Our Customers -->
+
+  <div id="collapse" class="collapse mb-4">
+    {% trombi %}
+  </div>
+
+
+</div>
+<!-- /.container -->
+
+
+{% endblock %}

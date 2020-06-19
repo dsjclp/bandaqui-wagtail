@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags social_share i18n %}
+
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Post Title
+      <small>by
+        <a href="#">Start Bootstrap</a>
+      </small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Preview Image -->
+        <div id="macarte" style="height: 300px"></div>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on January 1, 2017 at 12:00 PM</p>
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
+
+        <blockquote class="blockquote">
+          <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+          <footer class="blockquote-footer">Someone famous in
+            <cite title="Source Title">Source Title</cite>
+          </footer>
+        </blockquote>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
+
+        <hr>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary create-participation">Inscrivez vous</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <button class="create-participation btn btn-primary" type="button" name="button">
+              <span class="fa fa-plus mr-2"></span>Inscrivez vous à </button>{{ page.event_title}}
+          </div>
+            <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Single Comment -->
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          </div>
+        </div>
+
+        <!-- Comment with nested comments -->
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+            <div class="media mt-4">
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+
+            <div class="media mt-4">
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card mb-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+
+ <!-- Page Content -->
+ <div class="container">
+
+
+
+      
+    <div class="row">
+        <div class="col-sm-12 col-md-9">
+            <div class="card">
+                <div class="card-header card-header-image">
+                    {% image page.image fill-1000x667 as header_image %}
+                <img class="card-img-top img-fluid" alt="{{ page.image.title }}" src="{{ header_image.url }}">
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">{{ page.title }}</h1>
+
+                    <div class="card-subtitle">
+                        {% if page.get_status_text %}
+                            <h3 class="title text-danger"> {{ page.get_status_text }} </h3>
+                        {% endif %}
+                        <a href="{{ page.url }}ical/" class="btn btn-primary btn-round ml-auto" style="font-size: large;padding-left: 1em;
+padding-right: 1rem;
+padding-bottom: 0.25rem;
+padding-top: 0.25rem;
+margin-bottom: 1rem;"><i class="far fa-calendar-plus"></i></a>
+                        <ul class="list-unstyled">
+                <li>
+                    <i class="far fa-play-circle"></i> {{ page.start_dt|date:'r' }}
+                </li>
+                <li>
+                    <i class="far fa-stop-circle"></i> {{ page.end_dt|date:'r' }}
+                </li>
+                {% if page.location %}
+                    <li>
+                        <i class="fas fa-map-marked-alt"></i>
+                        {{ page.location }}
+                        <a class="gmap" target="_blank" href="http://maps.google.com/?q={{ page.location }}"><i
+                                class="fas fa-globe-africa"></i></a>
+                    </li>
+                {% endif %}
+            </ul>
+
+
+                    </div>
+
+                    <!--This includes the excerpt in the card-->
+                    <div class="card-text">
+                        {% if page.description %}
+                            {{ page.description|richtext }}
+                        {% else %}
+                            <p>{% trans "No description available" %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+
+
+                <ul class="collection" id="participation" style="border: none;">
+                    {% if presences %}
+                    <li class="collection-item">Présents : 
+                      {% for instrumentpresence in instrumentpresences %}
+                        {% if instrumentpresence.num_participations != 0 %}
+                          {{ instrumentpresence.num_participations}} en {{ instrumentpresence}},&nbsp;
+                        {% endif %}
+                      {% endfor %}
+                      (
+                      {% for vote in presences %}
+                        {% if vote.user.first_name %}
+                          {{ vote.user.first_name}},&nbsp;
+                        {% endif %}
+                      {% endfor %}
+                      )
+                    </li>
+                    {% endif %}
+                    {% if absences %}
+                    <li class="collection-item">Absents : 
+                      {% for vote in absences %}
+                        {{ vote.user.first_name}}&nbsp;
+                      {% endfor %}
+                    </li>
+                    {% endif %}
+                    {% if questions %}
+                    <li class="collection-item">Incertains : 
+                      {% for vote in questions %}
+                        {{ vote.user.first_name}},&nbsp;
+                      {% endfor %}
+                    </li>
+                    {% endif %}
+                  </ul>
+
+
+
+
+
+
+
+
+                <div class="card-footer">
+                    <a href="{{ page.get_parent.url }}" style="font-size: large">
+                        <i class="fas fa-angle-double-left"></i></a>
+
+                    <li class="list-inline-item ml-auto">
+                        {% post_to_facebook page.url '<span><div class="circle-badge"><i class="fab fa-facebook-f"></i>   </div></span>' %}
+
+                    </li>
+                    <li class="list-inline-item">
+                        {% post_to_twitter page.title page.url '<span><div class="circle-badge"><i class="fab fa-twitter"></i></div></span>' %}
+                    </li>
+                    <li class="list-inline-item">
+                        {% post_to_gplus page.url '<span><div class="circle-badge"><i class="fab fa-google-plus-g"></i></div></span>' %}
+                    </li>
+
+                </div>
+    </div>
+            <br>
+        </div>
+
+        <div class="col-sm-0 col-md-3">
+
+            <h3>
+                {% trans "Categories" %}
+            </h3>
+            <hr>
+            <ul class="list-unstyled">
+                {% for category in page.get_categories %}
+                    <li>
+                        <a href="/calendar/category/{{ category.name|lower }}/">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+   
+
+    {% else %}
+<h5 class="center-align">Merci de vous <a href="{% url 'home:login' %}" >identifier </a>pour accéder à cette page.</h5>
+{% endif %}
+
+
+</div>
+<!-- /.container -->
+
+{% endblock content %}
+
+
+    {% block extra_js %}
+
+    <script>
+        $(function () {
+    
+        // Create participation button
+        $(".create-participation").modalForm({formURL: "{% url 'home:create_participation' page.slug %}", modalID: "#create-modal"});
+    
+        // Hide message
+        $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+          $(".alert").slideUp(500);
+        });
+
+            // Create map
+            var carte = L.map('macarte').setView([{{ page.omap }}], 12);
+            var marker = L.marker([{{ page.omap }}]).addTo(carte);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+              }).addTo(carte);
+        
+          });
+        </script>
+    
+    {% endblock %}

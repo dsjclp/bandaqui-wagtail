@@ -1,0 +1,12 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+      <div class="row">
+        {% for trombipiece in trombi %}
+        {% image trombipiece.image fill-250x250 as img_thumb %}
+      <div class="col-lg-2 col-sm-4 mb-4">
+        <img class="img-fluid" src="{{ img_thumb.url }}" title="{{trombipiece.user.first_name}}">
+      </div>
+      {% endfor %}
+    </div>
+    <!-- /.row -->
