@@ -11,8 +11,8 @@
  <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Contact
-      <small>Subheading</small>
+    <h1 class="mt-4 mb-3">Calendrier
+      <small>Prochains événements
     </h1>
 
     {% include 'breadcrumb.html' %}
@@ -20,29 +20,34 @@
     <!-- Content Row -->
     <div class="row">
       <!-- Map Column -->
-      <div id='calendar' class="col-lg-8 mb-4">
-
-
-    </div>
+      <div id='calendar' class="col-lg-8 mb-4"></div>
       <!-- Contact Details Column -->
       <div class="col-lg-4 mb-4">
-        <h3>Contact Details</h3>
-        <p>
-          3481 Melrose Place
-          <br>Beverly Hills, CA 90210
-          <br>
-        </p>
-        <p>
-          <abbr title="Phone">P</abbr>: (123) 456-7890
-        </p>
-        <p>
-          <abbr title="Email">E</abbr>:
-          <a href="mailto:name@example.com">name@example.com
-          </a>
-        </p>
-        <p>
-          <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
-        </p>
+        <h3>Prochain événement</h3>
+        <hr>
+
+        <h4>{{ nextevent.title }}</h4>
+
+        <h5>DATE</h5>
+        <ul class="list-unstyled">
+          <li><i class="far fa-play-circle"></i> {{ nextevent.start_dt|date:'r' }}</li>
+          <li><i class="far fa-stop-circle"></i> {{ nextevent.end_dt|date:'r' }}</li>
+        </ul>
+
+        <h5>LIEU</h5>
+        <h5>{{ nextevent.location }}</h5>
+        <div id="macarte" style="height: 250px"></div>
+
+        <hr>
+
+        <button class="create-participation btn btn-primary" type="button" name="button">Inscrivez vous</button>
+      
+        <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content"></div>
+          </div>
+        </div>
+
       </div>
     </div>
     <!-- /.row -->
@@ -86,7 +91,18 @@
         //window.open('animation/event/'+event.id);
         return false;
             }
-        })
+        });
+
+        // Create participation button
+        $(".create-participation").modalForm({formURL: "{% url 'home:create_participation' nextevent.slug %}", modalID: "#create-modal"});
+
+        // Create map
+        var carte = L.map('macarte').setView([{{ nextevent.omap }}], 12);
+        var marker = L.marker([{{ nextevent.omap }}]).addTo(carte);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+          }).addTo(carte);
+
     });
 </script>
 {% endblock %}

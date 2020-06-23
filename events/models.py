@@ -221,6 +221,13 @@ class EventCalendar(RoutablePageMixin, Page):
         """
         return self.url
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+
+        # Add extra variables and return the updated context
+        context['nextevent'] = EventCalPage.objects.first()
+        return context
 
 class EventCalPage(RoutablePageMixin, Page):
     """

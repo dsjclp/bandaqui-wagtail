@@ -25,36 +25,27 @@
     
       </div>
       <div class="col-lg-6">
-        {{ page.introduction }}
+        <h4>{{ page.introduction }}</h4>
         {{ page.info | richtext }}
+
+        {% with blocks=self.body %}
+
+        {% for block in blocks %}
+  
+        <div class="col-lg-4 mb-4">
+                     <section class="block-{{ block.block_type }}">
+                         {{ block }}
+                     </section>
+        </div>
+        {% endfor %}
+          
+        {% endwith %}
 	</div>
     </div>
     <!-- /.row -->
 
-    <!-- Team Members -->
-    <h2>Vos options</h2>
-
     <div class="row">
-      {% with blocks=self.body %}
 
-      {% for block in blocks %}
-
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100 text-center">
-          <img class="card-img-top" src="http://placehold.it/750x450" alt="">
-          <div class="card-body">
-                   <section class="block-{{ block.block_type }}">
-                       {{ block }}
-                   </section>
-          </div>
-          <div class="card-footer">
-            {{ block.block_type }}
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-        
-      {% endwith %}
     </div>
     <!-- /.row -->
 
