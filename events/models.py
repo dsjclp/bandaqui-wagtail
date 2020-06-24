@@ -224,7 +224,6 @@ class EventCalendar(RoutablePageMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-
         # Add extra variables and return the updated context
         context['nextevent'] = EventCalPage.objects.first()
         return context
@@ -348,11 +347,7 @@ class EventCalPage(RoutablePageMixin, Page):
         context['presences'] = presences
         context['absences'] = absences
         context['questions'] = questions
-        return context
-    
-
-
-    
+        return context  
 
     @property
     def get_categories(self) -> models.QuerySet:
@@ -361,7 +356,7 @@ class EventCalPage(RoutablePageMixin, Page):
 
         :return: Queryset containing the Categories objects
         """
-        return Category.objects.all()
+        return Category.objects.filter(eventcalpage=self.pk)
 
     @property
     def get_status_text(self) -> Union[str, bool]:

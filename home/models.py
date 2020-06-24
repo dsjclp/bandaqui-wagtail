@@ -235,47 +235,16 @@ class AboutPage(Page):
 
     cardtext1 = RichTextField()
 
-    cardimage2 = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    ) 
+    invitation = RichTextField()
 
-    cardtext2 = RichTextField()
 
-    cardimage3 = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    ) 
-
-    cardtext3 = RichTextField()
-
-    cardimage4 = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    ) 
-
-    cardtext4 = RichTextField()
 
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
         FieldPanel('cardtext1', classname="full"),
         ImageChooserPanel('cardimage1'),
-        FieldPanel('cardtext2', classname="full"),
-        ImageChooserPanel('cardimage2'),
-        FieldPanel('cardtext3', classname="full"),
-        ImageChooserPanel('cardimage3'),
-        FieldPanel('cardtext4', classname="full"),
-        ImageChooserPanel('cardimage4'),
+        FieldPanel('invitation', classname="full"),
     ]
 
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
@@ -305,7 +274,6 @@ class TeamPage(Page):
     body = StreamField(
         BaseStreamBlock(), verbose_name="Body", blank=True
     )
-
 
     content_panels = Page.content_panels + [
         FieldPanel('introduction', classname="full"),
