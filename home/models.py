@@ -154,7 +154,8 @@ class Instrument(models.Model):
 
 @register_snippet
 class Partition(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=65)
+    subtitle = models.CharField(max_length=65)
     body = RichTextField(blank=True)
     class Meta:
         ordering = ('title',)
@@ -162,7 +163,7 @@ class Partition(models.Model):
         verbose_name_plural = u'Partitions'
     def __str__(self):
         return '%s' % (self.title)
-    panels = [FieldPanel('title', classname='full'),FieldPanel('body', classname='full')]
+    panels = [FieldPanel('title', classname='full'),FieldPanel('subtitle', classname='full'),FieldPanel('body', classname='full')]
 
 @register_snippet
 class Participation(models.Model):
@@ -225,6 +226,9 @@ class Trombipiece(models.Model):
 
 class AboutPage(Page):
 
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
+    
     cardimage1 = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -237,11 +241,11 @@ class AboutPage(Page):
 
     invitation = RichTextField()
 
-
-
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
         FieldPanel('cardtext1', classname="full"),
         ImageChooserPanel('cardimage1'),
         FieldPanel('invitation', classname="full"),
@@ -257,6 +261,9 @@ from .blocks import HeadingBlock
 from .blocks import BaseStreamBlock
 
 class TeamPage(Page):
+
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
     
     introduction = models.TextField(
         help_text='Text to describe the page',
@@ -276,6 +283,8 @@ class TeamPage(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
         FieldPanel('introduction', classname="full"),
         ImageChooserPanel('image'),
         FieldPanel('info', classname="full"),
@@ -291,21 +300,19 @@ class FormField(AbstractFormField):
     page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 class FormPage(AbstractEmailForm):
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
     body = StreamField(BaseStreamBlock())
-    thank_you_text = RichTextField(blank=True)
+    thank_you_text = models.TextField(
+        help_text='Remerciements',
+        blank=True)
 
     # Note how we include the FormField object via an InlinePanel using the
     # related_name value
     content_panels = AbstractEmailForm.content_panels + [
-        ImageChooserPanel('image'),
-        StreamFieldPanel('body'),
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
         InlinePanel('form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
         MultiFieldPanel([
@@ -323,6 +330,8 @@ from django import forms
 
 class PartitionsIndexPage(Page):
 
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
     introduction = models.TextField(
         help_text='Text to describe the page',
         blank=True)
@@ -339,6 +348,8 @@ class PartitionsIndexPage(Page):
 
 
     content_panels = Page.content_panels + [
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
         FieldPanel('introduction', classname="full"),
         ImageChooserPanel('image'),
         MultiFieldPanel(
@@ -412,15 +423,17 @@ class BookPage(Page):
 from wagtail.embeds.blocks import EmbedBlock
 class VideosIndexPage(Page):
 
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
     introduction = models.TextField(
         help_text='Text to describe the page',
         blank=True)
-
     body = StreamField([
         ('embedded_video', EmbedBlock(icon="media")),
     ], blank=True)
-
     content_panels = Page.content_panels + [
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
         FieldPanel('introduction', classname="full"),
         StreamFieldPanel('body'),
     ]
