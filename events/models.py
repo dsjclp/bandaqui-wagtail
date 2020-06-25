@@ -34,7 +34,9 @@ class EventCalendar(RoutablePageMixin, Page):
     """
     Base calendar class which actually displays the calendar.
     """
-
+    heading = models.CharField(max_length=65)
+    subheading = models.CharField(max_length=65)
+    
     description = RichTextField(blank=True, help_text=_('Description of the calendar'), verbose_name=_('Description'))
     """ Short description of the calendar."""
 
