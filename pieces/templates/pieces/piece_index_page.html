@@ -2,36 +2,133 @@
 {% load wagtailcore_tags static %}
 
 {% block content %}
-    {% if category %}
-    <h2>{{ category }}</h2>
-    {% endif %}
-    {% if tag %}
-    <h2>Pieces tagged with '{{ tag }}'</h2>
-    {% endif %}
 
-    {% for rl in self.related_links.all %}
-        <p>{{ rl.title }}: <a href='{{ rl.link_page.url }}'>{{ rl.link_page }}</a></p>
-    {% endfor %}
 
-    {% if pieces %}
-        <ul class="list-unstyled the-loop">
-        {% for piece in pieces %}
-            <li class="blog-post-item{% if forloop.first and not category and not tag %} first-reset{% endif %}">
-                {% include 'pieces/piece_post.html' with include_context="index_page" %}
-            </li>
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Blog Home One
+      <small>Subheading</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.html">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Blog Home 1</li>
+    </ol>
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+
+        {% if category %}
+        <h2>{{ category }}</h2>
+        {% endif %}
+        {% if tag %}
+        <h2>Pieces tagged with '{{ tag }}'</h2>
+        {% endif %}
+    
+        {% for rl in self.related_links.all %}
+            <p>{{ rl.title }}: <a href='{{ rl.link_page.url }}'>{{ rl.link_page }}</a></p>
         {% endfor %}
-        </ul>
+    
+        {% if pieces %}
+            <ul class="list-unstyled the-loop">
+            {% for piece in pieces %}
 
-        <ul class="pager">
-        {% if pieces.has_next %}
-          <li class="previous"><a href="?page={{ pieces.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Older</a></li>
+                    <!-- Blog Post -->
+        <div class="card mb-4">
+            <div class="card-body">
+                {% include 'pieces/piece_post.html' with include_context="index_page" %}
+            </div>
+          </div>
+            {% endfor %}
+            </ul>
+    
+            <ul class="pager pagination justify-content-center mb-4">
+            {% if pieces.has_next %}
+              <li class="previous page-link"><a href="?page={{ pieces.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Précédentes</a></li>
+            {% endif %}
+            {% if pieces.has_previous %}
+              <li class="next page-link"><a href="?page={{ pieces.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Suivantes &rarr;</a></li>
+            {% endif %}
+            </ul>
+    
+        {% else %}
+            <p>There are currently no piece</p>
         {% endif %}
-        {% if pieces.has_previous %}
-          <li class="next"><a href="?page={{ pieces.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Newer &rarr;</a></li>
-        {% endif %}
-        </ul>
 
-    {% else %}
-        <p>There are currently no piece</p>
-    {% endif %}        
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card mb-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+        
 {% endblock %}

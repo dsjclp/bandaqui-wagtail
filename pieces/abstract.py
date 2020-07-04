@@ -14,8 +14,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from .utils import unique_slugify
-
 import datetime
 
 
@@ -54,19 +52,6 @@ class PieceCategoryAbstract(models.Model):
     def __str__(self):
         return self.name
 
-    def clean(self):
-        if self.parent:
-            parent = self.parent
-            if self.parent == self:
-                raise ValidationError('Parent category cannot be self.')
-            if parent.parent and parent.parent == self:
-                raise ValidationError('Cannot have circular Parents.')
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            unique_slugify(self, self.name)
-        return super().save(*args, **kwargs)
-
 
 class PieceCategoryPiecePageAbstract(models.Model):
     category = models.ForeignKey(
@@ -92,22 +77,6 @@ class PiecePageTagAbstract(TaggedItemBase):
         abstract = True
 
 
-def limit_author_choices():
-    """ Limit choices in Piece author field based on config settings """
-    LIMIT_AUTHOR_CHOICES = getattr(settings, 'Piece_LIMIT_AUTHOR_CHOICES_GROUP', None)
-    if LIMIT_AUTHOR_CHOICES:
-        if isinstance(LIMIT_AUTHOR_CHOICES, str):
-            limit = Q(groups__name=LIMIT_AUTHOR_CHOICES)
-        else:
-            limit = Q()
-            for s in LIMIT_AUTHOR_CHOICES:
-                limit = limit | Q(groups__name=s)
-        if getattr(settings, 'Piece_LIMIT_AUTHOR_CHOICES_ADMIN', False):
-            limit = limit | Q(is_staff=True)
-    else:
-        limit = {'is_staff': True}
-    return limit
-
 
 class PiecePageAbstract(Page):
     body = RichTextField(verbose_name=_('body'), blank=True)
@@ -125,14 +94,6 @@ class PiecePageAbstract(Page):
         related_name='+',
         verbose_name=_('Header image')
     )
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        blank=True, null=True,
-        limit_choices_to=limit_author_choices,
-        verbose_name=_('Author'),
-        on_delete=models.SET_NULL,
-        related_name='author_pieces',
-    )
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
@@ -148,13 +109,7 @@ class PiecePageAbstract(Page):
             ], classname="label-above"),
         ], 'Scheduled publishing', classname="publishing"),
         FieldPanel('date'),
-        FieldPanel('author'),
     ]
-
-    def save_revision(self, *args, **kwargs):
-        if not self.author:
-            self.author = self.owner
-        return super().save_revision(*args, **kwargs)
 
     def get_absolute_url(self):
         return self.url

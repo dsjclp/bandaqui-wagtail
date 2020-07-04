@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from wagtail.snippets.models import register_snippet
 from taggit.models import Tag
 
@@ -16,9 +15,6 @@ from .abstract import (
     PiecePageAbstract,
     PiecePageTagAbstract
 )
-
-
-COMMENTS_APP = getattr(settings, 'COMMENTS_APP', None)
 
 
 class PieceIndexPage(PieceIndexPageAbstract):
@@ -38,7 +34,7 @@ class PieceIndexPage(PieceIndexPageAbstract):
         )
         return pieces
 
-    def get_context(self, request, tag=None, category=None, author=None, *args,
+    def get_context(self, request, tag=None, category=None, *args,
                     **kwargs):
         context = super(PieceIndexPage, self).get_context(
             request, *args, **kwargs)
@@ -56,11 +52,6 @@ class PieceIndexPage(PieceIndexPageAbstract):
             if not request.GET.get('category'):
                 category = get_object_or_404(PieceCategory, slug=category)
             pieces = pieces.filter(categories__category__name=category)
-        if author:
-            if isinstance(author, str) and not author.isdigit():
-                pieces = pieces.filter(author__username=author)
-            else:
-                pieces = pieces.filter(author_id=author)
 
         # Pagination
         page = request.GET.get('page')
@@ -81,8 +72,6 @@ class PieceIndexPage(PieceIndexPageAbstract):
         context['pieces'] = pieces
         context['category'] = category
         context['tag'] = tag
-        context['author'] = author
-        context['COMMENTS_APP'] = COMMENTS_APP
         context['paginator'] = paginator
         context = get_piece_context(context)
 
@@ -116,11 +105,6 @@ class PieceTag(Tag):
 
 
 def get_piece_context(context):
-    """ Get context data useful on all piece related pages """
-    context['authors'] = get_user_model().objects.filter(
-        owned_pages__live=True,
-        owned_pages__content_type__model='piecepage'
-    ).annotate(Count('owned_pages')).order_by('-owned_pages__count')
     context['all_categories'] = PieceCategory.objects.all()
     context['root_categories'] = PieceCategory.objects.filter(
         parent=None,
@@ -145,7 +129,6 @@ class PiecePage(PiecePageAbstract):
         context = super().get_context(request, *args, **kwargs)
         context['pieces'] = self.get_piece_index().pieceindexpage.pieces
         context = get_piece_context(context)
-        context['COMMENTS_APP'] = COMMENTS_APP
         return context
 
     parent_page_types = ['pieces.PieceIndexPage']
