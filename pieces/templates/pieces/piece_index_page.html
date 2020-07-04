@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block content %}
+    {% if category %}
+    <h2>{{ category }}</h2>
+    {% endif %}
+    {% if tag %}
+    <h2>Pieces tagged with '{{ tag }}'</h2>
+    {% endif %}
+
+    {% for rl in self.related_links.all %}
+        <p>{{ rl.title }}: <a href='{{ rl.link_page.url }}'>{{ rl.link_page }}</a></p>
+    {% endfor %}
+
+    {% if pieces %}
+        <ul class="list-unstyled the-loop">
+        {% for piece in pieces %}
+            <li class="blog-post-item{% if forloop.first and not category and not tag %} first-reset{% endif %}">
+                {% include 'pieces/piece_post.html' with include_context="index_page" %}
+            </li>
+        {% endfor %}
+        </ul>
+
+        <ul class="pager">
+        {% if pieces.has_next %}
+          <li class="previous"><a href="?page={{ pieces.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Older</a></li>
+        {% endif %}
+        {% if pieces.has_previous %}
+          <li class="next"><a href="?page={{ pieces.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Newer &rarr;</a></li>
+        {% endif %}
+        </ul>
+
+    {% else %}
+        <p>There are currently no piece</p>
+    {% endif %}        
+{% endblock %}

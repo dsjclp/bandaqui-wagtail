@@ -1,6 +1,5 @@
 from django import template
 from home.models import Instrument
-from home.models import Partition
 from home.models import Trombipiece
 
 register = template.Library()
@@ -11,14 +10,6 @@ register = template.Library()
 def instruments(context):
     return {
         'instruments': Instrument.objects.all(),
-        'request': context['request'],
-    }
-
-# Partition snippet
-@register.inclusion_tag('home/tags/partitions.html', takes_context=True)
-def partitions(context):
-    return {
-        'partitions': Partition.objects.all(),
         'request': context['request'],
     }
 

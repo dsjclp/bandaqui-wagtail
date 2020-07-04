@@ -83,7 +83,7 @@
     <hr>
 
     <a href="{{ page.url }}ical/" class="btn btn-primary btn-round ml-auto" style="font-size: large;padding-left: 1em;
-    padding-right: 1rem; padding-bottom: 0.25rem; padding-top: 0.25rem; margin-bottom: 1rem;"><i class="far fa-calendar-plus"></i></a> Téléchargez dans votre agenda
+    padding-right: 1rem; padding-bottom: 0.25rem; padding-top: 0.25rem; margin-bottom: 1rem;"><i class="far fa-calendar-plus"></i></a>  Ajoutez à votre agenda
   
   </div>
 
@@ -111,7 +111,7 @@
 
       <!-- Categories Widget -->
       <div class="card my-4">
-        <h5 class="card-header">Catégories</h5>
+        <h5 class="card-header">Catégories de l'événement</h5>
         <div class="card-body">
           <div class="row">
             <ul class="list-unstyled ml-3">
@@ -129,7 +129,7 @@
 
       <!-- Side Widget -->
       <div class="card my-4">
-        <h5 class="card-header">Vu déjà</h5>
+        <h5 class="card-header">Souvenirs...</h5>
         <div class="card-body">
           {% image page.image fill-1000x667 as header_image %}
           <img class="card-img-top img-fluid" alt="{{ page.image.title }}" src="{{ header_image.url }}">

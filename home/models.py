@@ -153,19 +153,6 @@ class Instrument(models.Model):
         return self.title
 
 @register_snippet
-class Partition(models.Model):
-    title = models.CharField(max_length=65)
-    subtitle = models.CharField(max_length=65)
-    body = RichTextField(blank=True)
-    class Meta:
-        ordering = ('title',)
-        verbose_name = u'Partition'
-        verbose_name_plural = u'Partitions'
-    def __str__(self):
-        return '%s' % (self.title)
-    panels = [FieldPanel('title', classname='full'),FieldPanel('subtitle', classname='full'),FieldPanel('body', classname='full')]
-
-@register_snippet
 class Participation(models.Model):
     event_page = models.ForeignKey(
         'wagtailcore.Page',
@@ -324,60 +311,8 @@ class FormPage(AbstractEmailForm):
         ], "Email"),
     ]
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from modelcluster.fields import ParentalManyToManyField
+
 from django import forms
-
-class PartitionsIndexPage(Page):
-
-    heading = models.CharField(max_length=65)
-    subheading = models.CharField(max_length=65)
-    introduction = models.TextField(
-        help_text='Text to describe the page',
-        blank=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='Landscape mode only; horizontal width between 1000px and '
-        '3000px.'
-    )
-    partitions = ParentalManyToManyField('Partition', blank=True)
-
-
-    content_panels = Page.content_panels + [
-        FieldPanel('heading', classname="full"),
-        FieldPanel('subheading', classname="full"),
-        FieldPanel('introduction', classname="full"),
-        ImageChooserPanel('image'),
-        MultiFieldPanel(
-            [
-                FieldPanel(
-                    'partitions',
-                    widget=forms.CheckboxSelectMultiple,
-                ),
-            ],
-            heading="Partitions à mettre dans la liste",
-        ),
-    ]
-
-    parent_page_types = ["TeamPage"]
-
-    # Pagination for the index page. We use the `django.core.paginator` as any
-    # standard Django app would, but the difference here being we have it as a
-    # method on the model rather than within a view function
-    def paginate(self, request, *args):
-        page = request.GET.get('page')
-        paginator = Paginator(self.get_breads(), 12)
-        try:
-            pages = paginator.page(page)
-        except PageNotAnInteger:
-            pages = paginator.page(1)
-        except EmptyPage:
-            pages = paginator.page(paginator.num_pages)
-        return pages
 
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail_blocks.blocks import HeaderBlock, ListBlock, ImageTextOverlayBlock, CroppedImagesWithTextBlock, \
@@ -385,13 +320,6 @@ from wagtail_blocks.blocks import HeaderBlock, ListBlock, ImageTextOverlayBlock,
 class BookPage(Page):
     book_file = models.ForeignKey(
         'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    partition = models.ForeignKey(
-        'Partition',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

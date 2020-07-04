@@ -24,7 +24,6 @@ from location_field.models.plain import PlainLocationField
 
 from home.models import Participation
 from home.models import Instrument
-from home.models import Partition
 
 from django.db.models import  Q, Count
 
@@ -239,10 +238,6 @@ class EventCalPage(RoutablePageMixin, Page):
                                         help_text=_('Categories this event belongs to'), verbose_name=_('Categories'))
     """Optional category that a specific calendar entry may belong to"""
 
-    partitions = models.ManyToManyField('home.Partition', through='events.PartitionEventPage', blank=True,
-                                        help_text=_('Partitions this event belongs to'), verbose_name=_('Partitions'))
-   
-    
     instruments = models.ManyToManyField('home.Instrument', through='events.instrumentEventPage', blank=True,
                                         help_text=_('Instruments this event belongs to'), verbose_name=_('Instruments'))
     
@@ -291,9 +286,6 @@ class EventCalPage(RoutablePageMixin, Page):
         FieldPanel('omap'),
         MultiFieldPanel([
             InlinePanel("event_categories", label=_("Categories"))
-        ]),
-        MultiFieldPanel([
-            InlinePanel("event_partitions", label=_("Partitions"))
         ]),
         MultiFieldPanel([
             InlinePanel("event_instruments", label=_("Instruments"))
@@ -454,7 +446,6 @@ class Category(models.Model):
         verbose_name = _("Event Category")
         verbose_name_plural = _("Event Categories")
 
-
 class CategoryEventPage(models.Model):
 
     category = models.ForeignKey(Category, related_name="+", verbose_name=_('Category'), on_delete=models.CASCADE)
@@ -465,17 +456,6 @@ class CategoryEventPage(models.Model):
 
     def __str__(self):
         return str(self.category)
-
-class PartitionEventPage(models.Model):
-
-    partition = models.ForeignKey(Partition, related_name="+", verbose_name=_('Partition'), on_delete=models.CASCADE)
-    page = ParentalKey('EventCalPage', related_name='event_partitions')
-    panels = [
-        FieldPanel('partition')
-    ]
-
-    def __str__(self):
-        return str(self.partition)
 
 
 class InstrumentEventPage(models.Model):
