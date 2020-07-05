@@ -9,7 +9,6 @@ def tag_view(request, tag):
     index = PieceIndexPage.objects.first()
     return index.serve(request, tag=tag)
 
-
 def category_view(request, category):
     index = PieceIndexPage.objects.first()
     return index.serve(request, category=category)

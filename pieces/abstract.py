@@ -16,6 +16,8 @@ from taggit.models import TaggedItemBase
 
 import datetime
 
+from .utils import unique_slugify
+
 
 class PieceIndexPageAbstract(Page):
     class Meta:
@@ -51,6 +53,19 @@ class PieceCategoryAbstract(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.parent:
+            parent = self.parent
+            if self.parent == self:
+                raise ValidationError('Parent category cannot be self.')
+            if parent.parent and parent.parent == self:
+                raise ValidationError('Cannot have circular Parents.')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            unique_slugify(self, self.name)
+        return super().save(*args, **kwargs)
 
 
 class PieceCategoryPiecePageAbstract(models.Model):

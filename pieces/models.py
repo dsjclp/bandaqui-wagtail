@@ -61,7 +61,7 @@ class PieceIndexPage(PieceIndexPageAbstract):
 
         paginator = None
         if page_size is not None:
-            paginator = Paginator(pieces, page_size)  # Show 10 pieces per page
+            paginator = Paginator(pieces, page_size)  
             try:
                 pieces = paginator.page(page)
             except PageNotAnInteger:
@@ -69,10 +69,15 @@ class PieceIndexPage(PieceIndexPageAbstract):
             except EmptyPage:
                 pieces = paginator.page(paginator.num_pages)
 
+        categories = PieceCategory.objects.all()
+        tags = PieceTag.objects.all()
+
         context['pieces'] = pieces
         context['category'] = category
         context['tag'] = tag
         context['paginator'] = paginator
+        context['categories'] = categories
+        context['tags'] = tags
         context = get_piece_context(context)
 
         return context

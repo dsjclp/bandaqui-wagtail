@@ -32,6 +32,8 @@
         {% if piece.categories.all %}
             Catégorie
                 {% for cat in piece.categories.all %}
+                {{ cat.category.name }}
+                {{ cat.category.slug }}
                     <a href="{% url 'pieces:category' cat.category.slug %}">{{ cat.category.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %} | 
         {% endif %}
