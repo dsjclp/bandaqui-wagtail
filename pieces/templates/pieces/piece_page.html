@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+    {% include 'pieces/piece_post.html' with piece=self %}
+{% endblock %}
