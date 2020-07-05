@@ -11,7 +11,8 @@
 
 {% if include_context == "index_page" %}
 <div class="piece-intro">
-    {{ piece.body|richtext|truncatewords_html:255 }} 
+    {{ piece.body|richtext|truncatewords_html:70 }} 
+    <a href="{% pageurl piece %}">Read the rest of this entry &raquo;</a>
 </div>
 {% else %}
 <div class="piece-body">

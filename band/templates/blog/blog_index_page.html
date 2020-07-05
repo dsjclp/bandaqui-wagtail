@@ -12,6 +12,11 @@
   
     {% include 'breadcrumb.html' %}
 
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
 
     {% if category %}
     <h2>{{ category }}</h2>
@@ -45,6 +50,86 @@
     {% else %}
         <p>There are currently no blog posts</p>
     {% endif %}  
+
     
+  </div>
+
+  <!-- Sidebar Widgets Column -->
+  <div class="col-md-4">
+
+    <!-- Search Widget -->
+    <div class="card mb-4">
+      <h5 class="card-header">Recherche</h5>
+      <div class="card-body">
+        <div class="input-group">
+
+      <form action="{% url 'search' %}" method="get">
+        <input type="text" name="query" value="{{ search_query }}">
+        <input type="submit" value="Search">
+    </form>
+
+  </div>
+</div>
+
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+                    {% if result.search_description %}
+                        {{ result.search_description|safe }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif search_query %}
+        No results found
+    {% else %}
+        Please type something into the search box
+    {% endif %}
+
     </div>
+
+    <!-- Categories Widget -->
+    <div class="card my-4">
+      <h5 class="card-header">Categories et marqueurs</h5>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <ul class="list-unstyled mb-0">
+              {% if categories %}
+              <ul class="list-unstyled the-loop">
+              {% for cat in categories %}
+              <li>
+                <a href="{% url 'blog:category' cat.slug %}">{{cat.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="col-lg-6">
+            <ul class="list-unstyled mb-0">
+              {% if tags %}
+              <ul class="list-unstyled the-loop">
+              {% for tag in tags %}
+              <li>
+                <a href="{% url 'blog:tag' tag.slug %}">{{tag.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<!-- /.row -->
+
+</div>
+<!-- /.container -->
+
 {% endblock %}
