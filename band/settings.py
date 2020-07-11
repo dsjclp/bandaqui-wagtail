@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'band.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.bandaqui'),
     }
 }
 
@@ -199,3 +199,27 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'home/login.html'
 
 BLOG_PAGINATION_PER_PAGE = 5
 
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+SECURE_REFERRER_POLICY = 'origin'
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 3600
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_PRELOAD = True
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ')*w!sb^m49-6be^xm4j)&ppm*rjbpu419l!b*5t85$+g&b1=+!'
+
+# SECURITY WARNING: define the correct hosts in production!
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '.yarig.fr']
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
