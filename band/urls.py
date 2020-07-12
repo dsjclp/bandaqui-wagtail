@@ -41,6 +41,14 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+from django.views.static import serve
+if not settings.DEBUG:
+    urlpatterns += [
+        url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+        url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    ]
+
+
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
