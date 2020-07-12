@@ -3,7 +3,7 @@ import random
 import string
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # DJANGO_SECRET_KEY *should* be specified in the environment. If it's not, generate an ephemeral key.
 if 'DJANGO_SECRET_KEY' in os.environ:
