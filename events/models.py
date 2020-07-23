@@ -52,6 +52,8 @@ class EventCalendar(RoutablePageMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('description'),
         ImageChooserPanel('default_image'),
+        FieldPanel('heading', classname="full"),
+        FieldPanel('subheading', classname="full"),
     ]
 
     subpage_types = ['events.EventCalPage']

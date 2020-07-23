@@ -4,12 +4,6 @@
 
 {% block content %}
 
-
-{% image page.cardimage1 width-800 as cardphoto1 %}
-{% image page.cardimage2 width-800 as cardphoto2 %}
-{% image page.cardimage3 width-800 as cardphoto3 %}
-{% image page.cardimage4 width-800 as cardphoto4 %}
-
   <!-- Page Content -->
   <div class="container">
 
@@ -19,20 +13,20 @@
   </h1>
 
     {% include 'breadcrumb.html' %}
-
-    <article>
+   
+      <article>
       {% for block in page.body %}
           {% if block.block_type == 'heading' %}
               <h1>{{ block.value }}</h1>
           {% else %}
-              <section class="block-{{ block.block_type }}">
-                  {% include_block block %}
-              </section>
+          <div class="embed-responsive embed-responsive-16by9">
+            {% include_block block %}
+          </div>
           {% endif %}
           <hr>
+
       {% endfor %}
     </article>
-
 
 
   </div>

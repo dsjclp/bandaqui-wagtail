@@ -80,6 +80,16 @@
             height="{{ cardphoto2.height }}" alt="{{ cardphoto2.alt }}" class="card-img-top" />
           <div class="card-body">
             <p class="card-text">{{ page.cardtext2|richtext }}</p>
+    
+            <h4>{{ nextevent.title }}</h4>
+    
+            <ul class="list-unstyled">
+              <h6><li><i class="far fa-clock"></i> Début : {{ nextevent.start_dt  }}</li></h6>
+              <h6><li><i class="far fa-clock"></i> Fin : {{ nextevent.end_dt }}</li></h6>
+            </ul>
+
+            <h5>à {{ nextevent.location }}</h5>
+            <div id="macarte" style="height: 250px"></div>
           </div>
         </div>
       </div>
@@ -101,7 +111,7 @@
     <!-- Call to Action Section -->
     <div class="row mb-4">
       <div class="col-md-8">
-        <p>{{ page.invitation }}</p>
+        <p>{{ page.invitation|richtext  }}</p>
       </div>
       <div class="col-md-4">
         <a class="btn btn-lg btn-secondary btn-block login-btn" href="#">Connexion</a>
@@ -111,4 +121,18 @@
   </div>
   <!-- /.container -->
 
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    $(document).ready(function () {
+        // Create map
+        var carte = L.map('macarte').setView([{{ nextevent.omap }}], 12);
+        var marker = L.marker([{{ nextevent.omap }}]).addTo(carte);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+          }).addTo(carte);
+    });
+</script>
 {% endblock %}

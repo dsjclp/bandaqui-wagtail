@@ -74,9 +74,7 @@ class HomePage(Page):
 
     cardtext3 = RichTextField()
 
-    invitation = models.TextField(
-        help_text='Invitation à la connexion',
-        blank=True)
+    invitation = RichTextField()
     
 
     # Editor panels configuration
@@ -96,6 +94,13 @@ class HomePage(Page):
         ImageChooserPanel('cardimage3'),
         FieldPanel('invitation', classname="full"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        # Add extra variables and return the updated context
+        context['nextevent'] = EventCalPage.objects.first()
+        return context
 
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
