@@ -5,12 +5,13 @@
 
 {% block content %}
 
-{% image page.carouselimage1 width-800 as carouselphoto1 %}
-{% image page.carouselimage2 width-800 as carouselphoto2 %}
-{% image page.carouselimage3 width-800 as carouselphoto3 %}
+{% image page.carouselimage1 width-1900 as carouselphoto1 %}
+{% image page.carouselimage2 width-2700 as carouselphoto2 %}
+{% image page.carouselimage3 width-2700 as carouselphoto3 %}
 {% image page.cardimage1 width-800 as cardphoto1 %}
 {% image page.cardimage2 width-800 as cardphoto2 %}
 {% image page.cardimage3 width-800 as cardphoto3 %}
+
 
 <header>
   <div id="carouselExampleIndicators" class="carousel carousel-fade slide" data-ride="carousel">
@@ -65,7 +66,7 @@
     <div class="card-deck">
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100 shadow-lg">
-          {% image page.cardimage1 width-400 as cardphoto1 %}
+          {% image page.cardimage1 width-300 as cardphoto1 %}
           <img src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }}"
             height="{{ cardphoto1.height }}" alt="{{ cardphoto1.alt }}" class="card-img-top" />
           <div class="card-body">
@@ -75,7 +76,7 @@
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100 shadow-lg">
-          {% image page.cardimage2 width-400 as cardphoto2 %}
+          {% image page.cardimage2 width-300 as cardphoto2 %}
           <img src="{{ cardphoto2.url }}" width="{{ cardphoto2.width }}"
             height="{{ cardphoto2.height }}" alt="{{ cardphoto2.alt }}" class="card-img-top" />
           <div class="card-body">
@@ -95,7 +96,7 @@
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100 shadow-lg">
-          {% image page.cardimage3 width-400 as cardphoto3 %}
+          {% image page.cardimage3 width-300 as cardphoto3 %}
           <img src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }}"
             height="{{ cardphoto3.height }}" alt="{{ cardphoto3.alt }}" class="card-img-top" />
           <div class="card-body">
