@@ -4,8 +4,8 @@
 __pycache__
 bandenv
 db.sqlite3
-/static
+static
 .DS_Store
-/media
+media
 /band/settings
-/staticfiles
+staticfiles
