@@ -21,7 +21,7 @@ class HomePage(Page):
         related_name='+'
     ) 
 
-    carouseltext1 = RichTextField()
+    carouseltext1 = RichTextField(blank=True, null=True)
 
     carouselimage2 = models.ForeignKey(
         'wagtailimages.Image',
@@ -31,18 +31,7 @@ class HomePage(Page):
         related_name='+'
     ) 
 
-    carouseltext2 = RichTextField()
-
-    carouselimage3 = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    ) 
-
-    carouseltext3 = RichTextField()
-
+    carouseltext2 = RichTextField(blank=True, null=True)
 
     cardimage1 = models.ForeignKey(
         'wagtailimages.Image',
@@ -84,8 +73,6 @@ class HomePage(Page):
         ImageChooserPanel('carouselimage1'),
         FieldPanel('carouseltext2', classname="full"),
         ImageChooserPanel('carouselimage2'),
-        FieldPanel('carouseltext3', classname="full"),
-        ImageChooserPanel('carouselimage3'),
         FieldPanel('cardtext1', classname="full"),
         ImageChooserPanel('cardimage1'),
         FieldPanel('cardtext2', classname="full"),

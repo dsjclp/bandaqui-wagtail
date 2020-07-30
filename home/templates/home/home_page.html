@@ -7,7 +7,6 @@
 
 {% image page.carouselimage1 width-1900 as carouselphoto1 %}
 {% image page.carouselimage2 width-2700 as carouselphoto2 %}
-{% image page.carouselimage3 width-2700 as carouselphoto3 %}
 {% image page.cardimage1 width-800 as cardphoto1 %}
 {% image page.cardimage2 width-800 as cardphoto2 %}
 {% image page.cardimage3 width-800 as cardphoto3 %}
@@ -18,7 +17,6 @@
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
       <!-- Slide One - Set the background image for this slide in the line below -->
@@ -32,13 +30,6 @@
       <div class="carousel-item" style="background-image: url({{carouselphoto2.url}});">
         <div class="carousel-caption d-none d-md-block">
           <h3>{{ page.carouseltext2|richtext }}</h3>
-          <p>&nbsp;</p>
-        </div>
-      </div>
-      <!-- Slide Three - Set the background image for this slide in the line below -->
-      <div class="carousel-item" style="background-image: url({{carouselphoto3.url}});">
-        <div class="carousel-caption d-none d-md-block">
-          <h3>{{ page.carouseltext3|richtext }}</h3>
           <p>&nbsp;</p>
         </div>
       </div>
