@@ -6,5 +6,6 @@ bandenv
 db.sqlite3
 /static
 .DS_Store
-media/
-band/settings/dev.py
+/media/
+/band/settings/dev.py
+/staticfiles/
