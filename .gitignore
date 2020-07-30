@@ -2,10 +2,10 @@
 *~
 /.vscode
 __pycache__
-bandenv
+bandenv/
 db.sqlite3
-static
+static/
 .DS_Store
-media
-/band/settings
-staticfiles
+media/
+dev.py
+staticfiles/
