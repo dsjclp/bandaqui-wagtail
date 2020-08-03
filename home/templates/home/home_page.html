@@ -48,50 +48,52 @@
 
   <!-- Page Content -->
   <div class="container">
+
+    <!-- Project One -->
+    <div class="row mt-3">
+      <div class="col-md-7">
+        <a href="#">
+          {% image page.cardimage1 height-300 as cardphoto1 %}
+          <img src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }}"
+          height="{{ cardphoto1.height }}" alt="{{ cardphoto1.alt }}" class="card-img-top" />
+        </a>
+      </div>
+      <div class="col-md-5">
+        {{ page.cardtext1|richtext }}
+      </div>
+    </div>
+    <!-- /.row -->
+
     <hr>
 
-    <!-- Portfolio Section -->
-
-    <div class="card-deck">
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100 shadow-lg">
-          {% image page.cardimage1 width-300 as cardphoto1 %}
-          <img src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }}"
-            height="{{ cardphoto1.height }}" alt="{{ cardphoto1.alt }}" class="card-img-top" />
-          <div class="card-body">
-            <p class="card-text">{{ page.cardtext1|richtext }}</p>
-          </div>
-        </div>
+    <!-- Project Two -->
+    <div class="row">
+      <div class="col-md-7">
+        <div id="macarte" style="height: 300px"></div>
       </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100 shadow-lg">
-          {% image page.cardimage2 width-300 as cardphoto2 %}
-          <img src="{{ cardphoto2.url }}" width="{{ cardphoto2.width }}"
-            height="{{ cardphoto2.height }}" alt="{{ cardphoto2.alt }}" class="card-img-top" />
-          <div class="card-body">
-            <p class="card-text">{{ page.cardtext2|richtext }}</p>
-    
-            <h4>{{ nextevent.title }}</h4>
-    
-            <ul class="list-unstyled">
-              <h6><li><i class="far fa-clock"></i> Début : {{ nextevent.start_dt  }}</li></h6>
-              <h6><li><i class="far fa-clock"></i> Fin : {{ nextevent.end_dt }}</li></h6>
-            </ul>
-
-            <h5>à {{ nextevent.location }}</h5>
-            <div id="macarte" style="height: 250px"></div>
-          </div>
-        </div>
+      <div class="col-md-5">
+        {{ page.cardtext2|richtext }}
+        <h2 class="mb-3">{{ nextevent.title }}</h2> 
+        <ul class="list-unstyled">
+          <h6><li><i class="far fa-clock"></i> Début : {{ nextevent.start_dt  }}</li></h6>
+          <h6><li><i class="far fa-clock"></i> Fin : {{ nextevent.end_dt }}</li></h6>
+        </ul>
+        <h5>à {{ nextevent.location }}</h5> 
       </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100 shadow-lg">
-          {% image page.cardimage3 width-300 as cardphoto3 %}
-          <img src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }}"
-            height="{{ cardphoto3.height }}" alt="{{ cardphoto3.alt }}" class="card-img-top" />
-          <div class="card-body">
-            <p class="card-text">{{ page.cardtext3|richtext }}</p>
-          </div>
-        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Project Three -->
+    <div class="row">
+      <div class="col-md-7">
+        {% image page.cardimage3 height-300 as cardphoto3 %}
+        <img src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }}"
+          height="{{ cardphoto3.height }}" alt="{{ cardphoto3.alt }}" class="card-img-top" />
+      </div>
+      <div class="col-md-5">
+      {{ page.cardtext3|richtext }}
       </div>
     </div>
     <!-- /.row -->
