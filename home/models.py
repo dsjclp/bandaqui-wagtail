@@ -219,6 +219,7 @@ class AboutPage(Page):
     cardtext1 = RichTextField()
 
     invitation = RichTextField()
+  
 
     # Editor panels configuration
 
