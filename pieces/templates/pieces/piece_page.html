@@ -1,7 +1,22 @@
+
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
 
 {% block content %}
+ <!-- Page Content -->
+ <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ page.title }}
+      <small>Actualité</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
     {% include 'pieces/piece_post.html' with piece=self %}
+    {% if COMMENTS_APP == 'django_comments_xtd' %}
+        {% include 'pieces/piece_post_comments_xtd.html' with piece=self %}
+    {% endif %}
+    </div>
 {% endblock %}
