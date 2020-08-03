@@ -24,7 +24,7 @@
         <h2>{{ category }}</h2>
         {% endif %}
         {% if tag %}
-        <h2>Pieces tagged with '{{ tag }}'</h2>
+        <h2>Pièces marquées avec '{{ tag }}'</h2>
         {% endif %}
     
         {% for rl in self.related_links.all %}
@@ -52,7 +52,7 @@
             </ul>
     
         {% else %}
-            <p>There are currently no piece</p>
+            <p>Aucun document publié</p>
         {% endif %}
 
       </div>
@@ -68,7 +68,7 @@
 
           <form action="{% url 'search' %}" method="get">
             <input type="text" name="query" value="{{ search_query }}">
-            <input type="submit" value="Search">
+            <input type="submit" value="Cherche">
         </form>
 
       </div>
@@ -86,16 +86,16 @@
                 {% endfor %}
             </ul>
         {% elif search_query %}
-            No results found
+            Aucun résultat
         {% else %}
-            Please type something into the search box
+            
         {% endif %}
 
         </div>
 
         <!-- Categories Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Categories et marqueurs</h5>
+          <h5 class="card-header">Catégories et tags</h5>
           <div class="card-body">
             <div class="row">
               <div class="col-lg-6">

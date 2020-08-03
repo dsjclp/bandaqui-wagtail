@@ -4,7 +4,6 @@
 
 
 {% block content %}
-{% if user.is_authenticated %}
 
 {% image page.image width-800 as photo %}
 
@@ -18,51 +17,42 @@
 
     {% include 'breadcrumb.html' %}
 
-    <!-- Intro Content -->
-    <div class="row">
-      <div class="col-lg-6">
-        <img class="img-fluid rounded mb-4 shadow-lg" src="{{ photo.url }}" width="{{ photo.width }} alt="">
-    
-      </div>
-      <div class="col-lg-6">
-        <h4>{{ page.introduction }}</h4>
-        {{ page.info | richtext }}
+    {% if user.is_authenticated %}
 
-        {% with blocks=self.body %}
-
-        {% for block in blocks %}
-  
-        <div class="mb-4">
-                     <section class="block-{{ block.block_type }}">
-                         {{ block }}
-                     </section>
+      <!-- Intro Content -->
+      <div class="row">
+        <div class="col-lg-6">
+          <img class="img-fluid rounded mb-4 shadow-lg" src="{{ photo.url }}" width="{{ photo.width }} alt="">
+      
         </div>
-        {% endfor %}
-          
-        {% endwith %}
-	</div>
-    </div>
-    <!-- /.row -->
+        <div class="col-lg-6">
+          <h4>{{ page.introduction }}</h4>
+          {{ page.info | richtext }}
 
-    <div class="row">
+          {% with blocks=self.body %}
 
-    </div>
-    <!-- /.row -->
+          {% for block in blocks %}
+    
+          <div class="mb-4">
+                      <section class="block-{{ block.block_type }}">
+                          {{ block }}
+                      </section>
+          </div>
+          {% endfor %}
+            
+          {% endwith %}
+        </div>
+      </div>
+      <!-- /.row -->
 
-
-{% else %}
-
-<li class="nav-item active">
-  <button type="button" class="btn btn-outline-warning login-btn">Connexion</button>
-  </li>
-
-<h5 class="center-align">Merci de vous <a href="{% url 'login' %}" >identifier </a>pour accéder à cette page.</h5>
-{% endif %}
-
-
+    {% else %}
 
 
+      <h5 class="center-align">Merci de vous identifier pour accéder à cette page.</h5>
+      <button type="button" class="btn btn-warning login-btn mb-3">Connexion</button>
 
+
+    {% endif %}
 
   </div>
   <!-- /.container -->
