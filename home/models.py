@@ -9,6 +9,7 @@ from wagtail.admin.edit_handlers import (
     InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel,
 )
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 
 class HomePage(Page):
@@ -64,7 +65,8 @@ class HomePage(Page):
     cardtext3 = RichTextField()
 
     invitation = RichTextField()
-    
+
+
 
     # Editor panels configuration
 
@@ -84,9 +86,8 @@ class HomePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-
-        # Add extra variables and return the updated context
-        context['nextevent'] = EventCalPage.objects.first()
+        
+        context['nextevent'] = EventCalPage.objects.filter(start_dt__gte=timezone.now()).first()
         return context
 
 from wagtail.snippets.models import register_snippet
@@ -273,7 +274,7 @@ class TeamPage(Page):
 
     def get_context(self, request):
         context = super(TeamPage, self).get_context(request)
-        context['nextevent'] = EventCalPage.objects.first()
+        context['nextevent'] = EventCalPage.objects.filter(start_dt__gte=timezone.now()).first()
         return context
 
 class FormField(AbstractFormField):
