@@ -12,7 +12,7 @@
 {% if include_context == "index_page" %}
 <div class="piece-intro">
     {{ piece.body|richtext|truncatewords_html:70 }} 
-    <a href="{% pageurl piece %}">Read the rest of this entry &raquo;</a>
+    <a href="{% pageurl piece %}">Intégralité du texte &raquo;</a>
 </div>
 {% else %}
 <div class="piece-body">
@@ -31,10 +31,8 @@
     </div>
     <div class="tags-and-comments">
         {% if piece.categories.all %}
-            Catégorie
+            Catégorie2
                 {% for cat in piece.categories.all %}
-                {{ cat.category.name }}
-                {{ cat.category.slug }}
                     <a href="{% url 'pieces:category' cat.category.slug %}">{{ cat.category.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %} | 
         {% endif %}
