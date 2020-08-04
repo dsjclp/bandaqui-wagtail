@@ -6,12 +6,21 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <h1>Search</h1>
 
-    <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-        <input type="submit" value="Search" class="button">
-    </form>
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Recherche
+      <small>Vos résultats</small>
+    </h1>
+
+    {% include 'breadcrumb.html' %}
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8 mb-3">
 
     {% if search_results %}
         <ul>
@@ -33,6 +42,20 @@
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
         {% endif %}
     {% elif search_query %}
-        No results found
+        Aucun résultat trouvé
     {% endif %}
+
+    <form action="{% url 'search' %}" method="get">
+        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+        <input type="submit" value="Search" class="button">
+    </form>
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
 {% endblock %}

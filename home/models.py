@@ -272,12 +272,6 @@ class TeamPage(Page):
         StreamFieldPanel('body'),
     ]
 
-    def get_context(self, request):
-        context = super(TeamPage, self).get_context(request)
-        next_event = EventCalPage.objects.filter(start_dt__gte=timezone.now(), categories__slug='public').order_by('start_dt').first()
-        context['nextevent'] = next_event
-        return context
-
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 

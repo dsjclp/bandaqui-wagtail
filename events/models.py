@@ -226,7 +226,7 @@ class EventCalendar(RoutablePageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        next_event = EventCalPage.objects.filter(start_dt__gte=timezone.now(), categories__slug='public').order_by('start_dt').first()
+        next_event = EventCalPage.objects.filter(start_dt__gte=timezone.now()).order_by('start_dt').first()
         context['nextevent'] = next_event
         return context
 
