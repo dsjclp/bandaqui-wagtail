@@ -274,7 +274,8 @@ class TeamPage(Page):
 
     def get_context(self, request):
         context = super(TeamPage, self).get_context(request)
-        context['nextevent'] = EventCalPage.objects.filter(start_dt__gte=timezone.now()).first()
+        next_event = EventCalPage.objects.filter(start_dt__gte=timezone.now(), categories__slug='public').order_by('start_dt').first()
+        context['nextevent'] = next_event
         return context
 
 class FormField(AbstractFormField):
