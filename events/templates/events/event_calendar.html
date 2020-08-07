@@ -94,7 +94,7 @@
         });
 
         // Create participation button
-        $(".create-participation").modalForm({formURL: "{% url 'home:create_participation' nextevent.slug %}", modalID: "#create-modal"});
+        $(".create-participation").modalForm({formURL: "{% url 'home:create_participation' nextevent.slug|urlencode %}", modalID: "#create-modal"});
 
         // Create map
         var carte = L.map('macarte').setView([{{ nextevent.omap }}], 12);
