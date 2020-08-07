@@ -61,7 +61,7 @@
 <script>
     $(document).ready(function () {
         $('#calendar').fullCalendar({
-            header: {center: 'month,agendaWeek,upcoming'},
+            header: {center: 'upcoming'},
             timeFormat: 'H(:mm)',
             nowIndicator: true,
             timezone: 'Europe/Paris', //Change as necessary
@@ -70,12 +70,12 @@
             views: {
                 upcoming: {
                     type: 'list',
-                    duration: {months: 12},
-                    buttonText: 'A venir', //translate as necessary
+                    duration: {months: 18},
+                    buttonText: 'Liste à venir', //translate as necessary
                     validRange: function (nowDate) {
                         return {
                             start: nowDate,
-                            end: nowDate.clone().add(12, 'months')
+                            end: nowDate.clone().add(18, 'months')
                         };
                     }
                 }
