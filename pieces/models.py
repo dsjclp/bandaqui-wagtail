@@ -20,7 +20,6 @@ from .abstract import (
 class PieceIndexPage(PieceIndexPageAbstract):
     class Meta:
         verbose_name = _('Piece index')
-        ordering = ('title',)
 
     @property
     def pieces(self):
