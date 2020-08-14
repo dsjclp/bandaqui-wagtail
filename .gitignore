@@ -8,4 +8,5 @@ static/
 .DS_Store
 media/
 dev.py
+prod.py
 staticfiles/

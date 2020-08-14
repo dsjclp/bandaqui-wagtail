@@ -5,49 +5,46 @@
 {% block title %}{{ page.seo_title }}{% endblock %}
 {% block metadesc %}{{ page.search_description }}{% endblock %}
 
-
 {% block content %}
 
+<div class="container gallery-wrapper">
 
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">{{ page.title }}
+    <small>sans le son ...</small>
+  </h1>
 
-  <div class="container gallery-wrapper">
-
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">{{ page.title }}
-          <small>sans le son ...</small>
-        </h1>
+  {% include 'breadcrumb.html' %}
+  
+  {% include 'wagtail_simple_gallery/simple_gallery.html' %}
     
-        {% include 'breadcrumb.html' %}
-
-
-    {% include 'wagtail_simple_gallery/simple_gallery.html' %}
-    
-    {% if gallery_images.has_next or gallery_images.has_previous %}
-    <div class="container">
-      <div class="gallery-pagination-container row">
-        <div class="col-sm-2">
-          {% if gallery_images.has_previous %}
-          <a href="?page={{ gallery_images.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&lt;&lt; Précédente</a>
-          {% endif %}
-        </div>
-        <div class="col-sm-8 text-center">
-          <ul class="gallery-pagination">
-          {% for page in gallery_images.paginator.page_range %}
-            <li class="gallery-pagination-item {% if gallery_images.number == page  %}active{% endif %}">
-              <a class="{% if gallery_images.number == page  %}active{% endif %}" href="?page={{page }}">{{ page }}</a>
-            </li>
-          {% endfor %}
-          </ul>
-        </div>
-        <div class="col-sm-2 text-right">
-          {% if gallery_images.has_next %}
-          <a href="?page={{ gallery_images.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Suivante &gt;&gt;</a>
-          {% endif %}
-        </div>
+  {% if gallery_images.has_next or gallery_images.has_previous %}
+  <div class="container">
+    <div class="gallery-pagination-container row">
+      <div class="col-sm-2">
+        {% if gallery_images.has_previous %}
+        <a href="?page={{ gallery_images.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&lt;&lt; Précédente</a>
+        {% endif %}
+      </div>
+      <div class="col-sm-8 text-center">
+        <ul class="gallery-pagination">
+        {% for page in gallery_images.paginator.page_range %}
+          <li class="gallery-pagination-item {% if gallery_images.number == page  %}active{% endif %}">
+            <a class="{% if gallery_images.number == page  %}active{% endif %}" href="?page={{page }}">{{ page }}</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="col-sm-2 text-right">
+        {% if gallery_images.has_next %}
+        <a href="?page={{ gallery_images.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Suivante &gt;&gt;</a>
+        {% endif %}
       </div>
     </div>
-    {% endif %}
   </div>
+  {% endif %}
+  </div>
+  
 {% endblock %}
 
 {% block extra_js %}{% endblock %}

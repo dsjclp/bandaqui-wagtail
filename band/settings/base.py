@@ -16,17 +16,11 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
 
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
-    'search',
-
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -38,6 +32,11 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
+    
+    'wagtail.contrib.modeladmin',
+    'wagtailmenus',
+    'wagtailfontawesome',
+    'wagtail_simple_gallery',
 
     'modelcluster',
     'taggit',
@@ -51,22 +50,14 @@ INSTALLED_APPS = [
 
     'location_field.apps.DefaultConfig',
     'widget_tweaks',
-    'events',
     'django_social_share',
-
-    'wagtail_simple_gallery',
-
-    'wagtail.contrib.modeladmin',
-    'wagtailmenus',
-
-    'blog',
-
     'django.contrib.sitemaps',
+    'search',
     
-    'wagtailfontawesome',
-
+    'home',
+    'events',
+    'blog',
     'pieces',
-
 ]
 
 MIDDLEWARE = [
@@ -168,7 +159,6 @@ MEDIA_URL = '/media/'
 
 
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = "band"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
@@ -187,4 +177,3 @@ LOGOUT_REDIRECT_URL = '/'
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'home/login.html'
 
 BLOG_PAGINATION_PER_PAGE = 5
-

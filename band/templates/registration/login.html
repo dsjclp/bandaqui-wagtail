@@ -4,9 +4,9 @@
 
 {% block content %}
 <main class = "center-align">
-    <h5 class="red-text text-darken-2">Connectez vous</h5>
-    <div class="container">
-      <div class="card-panel hoverable grey lighten-4 row">
+  <h5 class="red-text text-darken-2">Connectez vous</h5>
+  <div class="container">
+    <div class="card-panel hoverable grey lighten-4 row">
       <form class="col s12" method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {% for error in form.non_field_errors %}
@@ -23,10 +23,10 @@
         </div>
         <div class='row'>
           <div class='input-field'>
-              {% for error in form.password.errors %}
-                {{ error }}
-              {% endfor %}
-              {{ form.password|attr:"placeholder:Mot de passe"|attr:"type:password"|attr:"class:validate" }}
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+            {{ form.password|attr:"placeholder:Mot de passe"|attr:"type:password"|attr:"class:validate" }}
             <label for='password'>Entrez votre mot de passe</label>
           </div>
         </div>

@@ -9,15 +9,16 @@
  <!-- Page Content -->
  <div class="container">
 
-  <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">{{ page.heading}}
-    <small>{{ page.subheading}}</small>
-  </h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ page.heading}}
+      <small>{{ page.subheading}}</small>
+    </h1>
 
   {% include 'breadcrumb.html' %}
 
   <!-- Intro Content -->
   <div class="row">
+
     <div class="col-lg-6">
       <img class="img-fluid rounded mb-4 shadow-lg" src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }} alt="">
     </div>
@@ -31,18 +32,16 @@
 
   {% if page.invitation %}
 
-      <!-- Call to Action Section -->
-      <div class="row mb-4">
-        <div class="col-md-8">
-          <p>{{ page.invitation|richtext }}</p>
-        </div>
-        <div class="col-md-4">
-          <a class="btn btn-lg btn-secondary btn-block" 
-          data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">Les musiciens</a>
-        </div>
-      </div>
-
-  <!-- Our Customers -->
+  <!-- Call to Action Section -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <p>{{ page.invitation|richtext }}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="btn btn-lg btn-secondary btn-block" 
+      data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">Les musiciens</a>
+    </div>
+  </div>
 
   <div id="collapse" class="collapse mb-4 text-center">
     {% trombi %}
@@ -52,6 +51,5 @@
 
 </div>
 <!-- /.container -->
-
 
 {% endblock %}

@@ -1,8 +1,8 @@
 {% load static wagtailimages_tags wagtailsimplegallery_tags %}
 
-  <link rel="stylesheet" href="{% static 'css/baguetteBox.min.css' %}"/>
-  
-  <div class="container">
+<link rel="stylesheet" href="{% static 'css/baguetteBox.min.css' %}"/>
+
+<div class="container">
   <div class="row gallery-container">
   {% for img in gallery_images %}
     {% image img fill-250x250 as img_thumb %}
@@ -14,12 +14,9 @@
     </div>
   {% endfor %}
   </div>
-   </div>
-
+</div>
 
   {% if page.use_lightbox or use_lightbox %}
-  <script src="{% static 'js/baguetteBox.min.js' %}"></script>
-  <script type="text/javascript">
-    baguetteBox.run('.gallery-container');
-  </script>
+    <script src="{% static 'js/baguetteBox.min.js' %}"></script>
+    <script type="text/javascript">baguetteBox.run('.gallery-container');</script>
   {% endif %}

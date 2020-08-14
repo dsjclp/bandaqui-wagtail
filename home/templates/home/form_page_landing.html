@@ -6,8 +6,8 @@
 
 {% block content %}
 
- <!-- Page Content -->
- <div class="container">
+<!-- Page Content -->
+<div class="container">
 
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">{{ page.heading}}
@@ -16,22 +16,17 @@
 
   {% include 'breadcrumb.html' %}
 
-      <!-- Intro Content -->
-      <div class="row">
-
-        <div class="col-lg-12">
-          <h4>{{ page.thank_you_text }}</h4>
-          </div>
-    
+  <!-- Intro Content -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>{{ page.thank_you_text }}</h4>
       </div>
-      <!-- /.row -->
+  </div>
+  <!-- /.row -->
 
 </div>
 <!-- /.container -->
 
-
 {% endblock %}
 
-{% block extra_js %}
-
-{% endblock %}
+{% block extra_js %}{% endblock %}

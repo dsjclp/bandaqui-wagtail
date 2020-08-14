@@ -4,45 +4,40 @@
 
 {% block content %}
 
-  <!-- Page Content -->
-  <div class="container">
+<!-- Page Content -->
+<div class="container">
 
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">{{ page.heading}}
     <small>{{ page.subheading}}</small>
   </h1>
 
-    {% include 'breadcrumb.html' %}
+  {% include 'breadcrumb.html' %}
 
-      <!-- Intro Content -->
+  <!-- Intro Content -->
   <div class="row">
-
     <div class="col-lg-6">
       <h4>{{ page.introduction }}</h4>
       </div>
-
   </div>
   <!-- /.row -->
 
   <hr>
    
-      <article>
-      {% for block in page.body %}
-          {% if block.block_type == 'heading' %}
-              <h1>{{ block.value }}</h1>
-          {% else %}
-          <div class="embed-responsive embed-responsive-16by9">
-            {% include_block block %}
-          </div>
-          {% endif %}
-          <hr>
+  <article>
+  {% for block in page.body %}
+      {% if block.block_type == 'heading' %}
+          <h1>{{ block.value }}</h1>
+      {% else %}
+      <div class="embed-responsive embed-responsive-16by9">
+        {% include_block block %}
+      </div>
+      {% endif %}
+      <hr>
+  {% endfor %}
+</article>
 
-      {% endfor %}
-    </article>
-
-
-  </div>
-  <!-- /.container -->
-
+</div>
+<!-- /.container -->
 
 {% endblock %}

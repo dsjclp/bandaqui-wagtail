@@ -15,45 +15,45 @@
     <small>{{ page.subheading}}</small>
   </h1>
 
-    {% include 'breadcrumb.html' %}
+  {% include 'breadcrumb.html' %}
 
-    <!-- Content Row -->
-    <div class="row">
-      <!-- Map Column -->
-      <div id='calendar' class="col-lg-8 mb-4"></div>
-      <!-- Contact Details Column -->
-      <div class="col-lg-4 mb-4">
-        <h3>Prochaine prestation</h3>
-        <hr>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Map Column -->
+    <div id='calendar' class="col-lg-8 mb-4"></div>
+    <!-- Contact Details Column -->
+    <div class="col-lg-4 mb-4">
+      <h3>Prochaine prestation</h3>
+      <hr>
 
-        <h4>{{ nextevent.title }}</h4>
+      <h4>{{ nextevent.title }}</h4>
 
-        <h5>DATE</h5>
-        <ul class="list-unstyled">
-          <h6><li><i class="far fa-clock"></i> Début : {{ nextevent.start_dt  }}</li></h6>
-          <h6><li><i class="far fa-clock"></i> Fin : {{ nextevent.end_dt }}</li></h6>
-        </ul>
+      <h5>DATE</h5>
+      <ul class="list-unstyled">
+        <h6><li><i class="far fa-clock"></i> Début : {{ nextevent.start_dt  }}</li></h6>
+        <h6><li><i class="far fa-clock"></i> Fin : {{ nextevent.end_dt }}</li></h6>
+      </ul>
 
-        <h5>LIEU</h5>
-        <h5>{{ nextevent.location }}</h5>
-        <div id="macarte" style="height: 250px"></div>
+      <h5>LIEU</h5>
+      <h5>{{ nextevent.location }}</h5>
+      <div id="macarte" style="height: 250px"></div>
 
-        <hr>
+      <hr>
 
-        <button class="create-participation btn btn-primary" type="button" name="button">Inscrivez vous</button>
-      
-        <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content"></div>
-          </div>
+      <button class="create-participation btn btn-primary" type="button" name="button">Inscrivez vous</button>
+    
+      <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content"></div>
         </div>
-
       </div>
-    </div>
-    <!-- /.row -->
 
+    </div>
   </div>
-  <!-- /.container -->
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
 {% endblock content %}
 
 {% block extra_js %}

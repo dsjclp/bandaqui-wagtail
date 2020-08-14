@@ -2,27 +2,28 @@
 {% load wagtailcore_tags static %}
 
 {% block content %}
- <!-- Page Content -->
- <div class="container">
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">{{ page.title }}
-      <small></small>
-    </h1>
+<!-- Page Content -->
+<div class="container">
   
-    {% include 'breadcrumb.html' %}
-
-    <div class="row">
-
-      <!-- Blog Entries Column -->
-      <div class="col-md-8">
-
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">{{ page.title }}
+    <small></small>
+  </h1>
+  
+  {% include 'breadcrumb.html' %}
+  
+  <div class="row">
+    
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
 
     {% if category %}
-    <h2>{{ category }}</h2>
+      <h2>{{ category }}</h2>
     {% endif %}
+
     {% if tag %}
-    <h2>Actualités marquées avec '{{ tag }}'</h2>
+      <h2>Actualités marquées avec '{{ tag }}'</h2>
     {% endif %}
 
     {% for rl in self.related_links.all %}
@@ -30,104 +31,104 @@
     {% endfor %}
 
     {% if blogs %}
-        <ul class="list-unstyled the-loop">
-        {% for blog in blogs %}
-            <li class="blog-post-item{% if forloop.first and not category and not tag %} first-reset{% endif %}">
-                {% include 'blog/blog_post.html' with include_context="index_page" %}
-            </li>
-        {% endfor %}
-        </ul>
 
-        <ul class="pager">
-        {% if blogs.has_next %}
-          <li class="previous"><a href="?page={{ blogs.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Older</a></li>
-        {% endif %}
-        {% if blogs.has_previous %}
-          <li class="next"><a href="?page={{ blogs.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Newer &rarr;</a></li>
-        {% endif %}
-        </ul>
+      <ul class="list-unstyled the-loop">
+      {% for blog in blogs %}
+          <li class="blog-post-item{% if forloop.first and not category and not tag %} first-reset{% endif %}">
+              {% include 'blog/blog_post.html' with include_context="index_page" %}
+          </li>
+      {% endfor %}
+      </ul>
+
+      <ul class="pager">
+      {% if blogs.has_next %}
+        <li class="previous"><a href="?page={{ blogs.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Older</a></li>
+      {% endif %}
+      {% if blogs.has_previous %}
+        <li class="next"><a href="?page={{ blogs.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Newer &rarr;</a></li>
+      {% endif %}
+      </ul>
 
     {% else %}
         <p>Aucune actualité publiée</p>
+    
     {% endif %}  
 
-    
-  </div>
-
-  <!-- Sidebar Widgets Column -->
-  <div class="col-md-4">
-
-    <!-- Search Widget -->
-    <div class="card mb-4">
-      <h5 class="card-header">Recherche</h5>
-      <div class="card-body">
-        <div class="input-group">
-
-      <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query" value="{{ search_query }}">
-        <input type="submit" value="Cherche">
-    </form>
-
-  </div>
-</div>
-
-    {% if search_results %}
-        <ul>
-            {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description|safe }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% elif search_query %}
-        Aucun résultat
-    {% else %}
-
-    {% endif %}
-
     </div>
 
-    <!-- Categories Widget -->
-    <div class="card my-4">
-      <h5 class="card-header">Catégories et tags</h5>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-6">
-            <ul class="list-unstyled mb-0">
-              {% if categories %}
-              <ul class="list-unstyled the-loop">
-              {% for cat in categories %}
-              <li>
-                <a href="{% url 'blog:category' cat.slug %}">{{cat.name}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <div class="col-lg-6">
-            <ul class="list-unstyled mb-0">
-              {% if tags %}
-              <ul class="list-unstyled the-loop">
-              {% for tag in tags %}
-              <li>
-                <a href="{% url 'blog:tag' tag.slug %}">{{tag.name}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
 
+      <!-- Search Widget -->
+      <div class="card mb-4">
+
+        <h5 class="card-header">Recherche</h5>
+
+        <div class="card-body">
+          <div class="input-group">
+            <form action="{% url 'search' %}" method="get">
+              <input type="text" name="query" value="{{ search_query }}">
+              <input type="submit" value="Cherche">
+            </form>
+          </div>
+        </div>
+
+        {% if search_results %}
+          <ul>
+              {% for result in search_results %}
+                  <li>
+                      <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+                      {% if result.search_description %}
+                          {{ result.search_description|safe }}
+                      {% endif %}
+                  </li>
+              {% endfor %}
+          </ul>
+        {% elif search_query %}
+            Aucun résultat
+        {% else %}
+
+        {% endif %}
+
+      </div>
+
+      <!-- Categories Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Catégories et tags</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <ul class="list-unstyled mb-0">
+                {% if categories %}
+                <ul class="list-unstyled the-loop">
+                {% for cat in categories %}
+                <li>
+                  <a href="{% url 'blog:category' cat.slug %}">{{cat.name}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="col-lg-6">
+              <ul class="list-unstyled mb-0">
+                {% if tags %}
+                <ul class="list-unstyled the-loop">
+                {% for tag in tags %}
+                <li>
+                  <a href="{% url 'blog:tag' tag.slug %}">{{tag.name}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
 
-
   </div>
-</div>
-<!-- /.row -->
+  <!-- /.row -->
 
 </div>
 <!-- /.container -->

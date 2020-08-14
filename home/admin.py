@@ -4,8 +4,6 @@ from .models import Participation
 from .models import Instrument
 from wagtail.core.models import Page
 
-
-
 from django.contrib.contenttypes.admin import GenericTabularInline
 
 

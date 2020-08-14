@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class CategoryManager(models.Manager):
 
     def with_uses(self, announcements):

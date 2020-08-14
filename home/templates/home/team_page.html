@@ -7,54 +7,52 @@
 
 {% image page.image width-800 as photo %}
 
-  <!-- Page Content -->
-  <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">{{ page.heading}}
-      <small>{{ page.subheading}}</small>
-    </h1>
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">{{ page.heading}}
+    <small>{{ page.subheading}}</small>
+  </h1>
 
-    {% include 'breadcrumb.html' %}
+  {% include 'breadcrumb.html' %}
 
-    {% if user.is_authenticated %}
+  {% if user.is_authenticated %}
 
-      <!-- Intro Content -->
-      <div class="row">
-        <div class="col-lg-6">
-          <img class="img-fluid rounded mb-4 shadow-lg" src="{{ photo.url }}" width="{{ photo.width }} alt="">
-      
-        </div>
-        <div class="col-lg-6">
-          <h4>{{ page.introduction }}</h4>
-          {{ page.info | richtext }}
-
-          {% with blocks=self.body %}
-
-          {% for block in blocks %}
+    <!-- Intro Content -->
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid rounded mb-4 shadow-lg" src="{{ photo.url }}" width="{{ photo.width }} alt="">
     
-          <div class="mb-4">
-                      <section class="block-{{ block.block_type }}">
-                          {{ block }}
-                      </section>
-          </div>
-          {% endfor %}
-            
-          {% endwith %}
-        </div>
       </div>
-      <!-- /.row -->
+      <div class="col-lg-6">
+        <h4>{{ page.introduction }}</h4>
+        {{ page.info | richtext }}
 
-    {% else %}
+        {% with blocks=self.body %}
 
+        {% for block in blocks %}
 
-      <h5 class="center-align">Merci de vous identifier pour accéder à cette page.</h5>
-      <button type="button" class="btn btn-warning login-btn mb-3">Connexion</button>
+        <div class="mb-4">
+                    <section class="block-{{ block.block_type }}">
+                        {{ block }}
+                    </section>
+        </div>
+        {% endfor %}
+          
+        {% endwith %}
+      </div>
+    </div>
+    <!-- /.row -->
 
+   {% else %}
+
+    <h5 class="center-align">Merci de vous identifier pour accéder à cette page.</h5>
+    <button type="button" class="btn btn-warning login-btn mb-3">Connexion</button>
 
     {% endif %}
 
-  </div>
-  <!-- /.container -->
+</div>
+<!-- /.container -->
 
 {% endblock %}
