@@ -10,6 +10,7 @@
 {% image page.cardimage1 width-800 as cardphoto1 %}
 {% image page.cardimage2 width-800 as cardphoto2 %}
 {% image page.cardimage3 width-800 as cardphoto3 %}
+{% image page.carousellogo width-800 as logo %}
 
 
 <header>
@@ -22,15 +23,13 @@
       <!-- Slide One - Set the background image for this slide in the line below -->
       <div class="carousel-item active" style="background-image: url({{carouselphoto1.url}});">
         <div class="carousel-caption d-md-block">
-          <h3>{{ page.carouseltext1|richtext }}</h3>
-          <p>&nbsp;</p>
+          <img class="img-fluid " src="{{ logo.url }}" width="{{ logo.width }} alt="">
         </div>
       </div>
       <!-- Slide Two - Set the background image for this slide in the line below -->
       <div class="carousel-item" style="background-image: url({{carouselphoto2.url}});">
         <div class="carousel-caption d-md-block">
           <h3>{{ page.carouseltext2|richtext }}</h3>
-          <p>&nbsp;</p>
         </div>
       </div>
     </div>

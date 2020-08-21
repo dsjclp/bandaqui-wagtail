@@ -22,6 +22,14 @@ class HomePage(Page):
         related_name='+'
     ) 
 
+    carousellogo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    ) 
+    
     carouseltext1 = RichTextField(blank=True, null=True)
 
     carouselimage2 = models.ForeignKey(
@@ -71,6 +79,7 @@ class HomePage(Page):
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
+        ImageChooserPanel('carousellogo'),
         FieldPanel('carouseltext1', classname="full"),
         ImageChooserPanel('carouselimage1'),
         FieldPanel('carouseltext2', classname="full"),
