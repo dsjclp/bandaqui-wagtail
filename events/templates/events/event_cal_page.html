@@ -4,10 +4,10 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-
 <!-- Page Content -->
 <div class="container">
+
+{% if user.is_authenticated %}
 
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">{{ page.title }}
@@ -67,9 +67,9 @@
       </ul>
 
       {% if instrumentmaxs %}
-        <h5>Maximum souhaités pour certains instruments</h5>
+        <h5>Maximum souhaité pour certains instruments</h5>
         <ul class="list-unstyled" id="participation">
-          <li><i class="far fa-laugh-wink"></i> Maximum souhaités : 
+          <li><i class="far fa-laugh-wink"></i> Maximum souhaité : 
             {% for instrumentmax in instrumentmaxs %}
               En {{ instrumentmax.instrument}}: &nbsp;pas plus de {{ instrumentmax.nbmax}},
             {% endfor %}
@@ -151,14 +151,16 @@
   </div>
   <!-- /.row -->
 
+
+{% else %}
+  <h5 class="center-align">Merci de vous identifier pour accéder à cette page.</h5>
+  <button type="button" class="btn btn-warning login-btn mb-3">Connexion</button>
+{% endif %}
+
 </div>
 <!-- /.container -->
 
-{% else %}
- <div class="container">
-    <h5 class="center-align">Merci de vous <a href="{% url 'home:login' %}" >identifier </a>pour accéder à cette page.</h5>
-  </div>
-{% endif %}
+
 
 {% endblock content %}
 
