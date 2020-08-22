@@ -26,7 +26,7 @@ class PieceIndexPage(PieceIndexPageAbstract):
         # Get list of piece pages that are descendants of this page
         pieces = PiecePage.objects.descendant_of(self).live()
         pieces = pieces.order_by(
-            '-date'
+            'title'
         ).select_related('owner').prefetch_related(
             'tagged_items__tag',
             'categories',
