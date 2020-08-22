@@ -310,6 +310,9 @@ class EventCalPage(RoutablePageMixin, Page):
 
     class Meta:
         verbose_name = _("Calendar Event")
+    
+    def __str__(self):
+        return self.title
 
     def clean(self):
         """

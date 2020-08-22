@@ -160,7 +160,7 @@ class Participation(models.Model):
         'wagtailcore.Page',
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='+',
     )
     PARTICIPATION_CHOICES = [
