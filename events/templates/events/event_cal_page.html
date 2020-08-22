@@ -66,6 +66,17 @@
         {% endif %}
       </ul>
 
+      {% if instrumentmaxs %}
+        <h5>Maximum souhaités pour certains instruments</h5>
+        <ul class="list-unstyled" id="participation">
+          <li><i class="far fa-laugh-wink"></i> Maximum souhaités : 
+            {% for instrumentmax in instrumentmaxs %}
+              En {{ instrumentmax.instrument}}: &nbsp;pas plus de {{ instrumentmax.nbmax}},
+            {% endfor %}
+          </li>
+        </ul>
+      {% endif %}
+
       <h5>Lieu</h5>
       {% if page.location %}
       <ul class="list-unstyled">
@@ -80,12 +91,11 @@
       <div id="macarte" style="height: 300px"></div>
       {% endif %}
 
-    <hr>
-
-    <a href="{{ page.url }}ical/" class="btn btn-primary btn-round ml-auto" style="font-size: large;padding-left: 1em;
-    padding-right: 1rem; padding-bottom: 0.25rem; padding-top: 0.25rem; margin-bottom: 1rem;"><i class="far fa-calendar-plus"></i></a>  Ajoutez à votre agenda
+      <hr>
+      <a href="{{ page.url }}ical/" class="btn btn-primary btn-round ml-auto" style="font-size: large;padding-left: 1em;
+      padding-right: 1rem; padding-bottom: 0.25rem; padding-top: 0.25rem; margin-bottom: 1rem;"><i class="far fa-calendar-plus"></i></a>  Ajoutez à votre agenda
   
-  </div>
+    </div>
 
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">

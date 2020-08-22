@@ -338,10 +338,12 @@ class EventCalPage(RoutablePageMixin, Page):
         presences = Participation.objects.filter(event_page=self.pk, choice='OUI')
         absences = Participation.objects.filter(event_page=self.pk, choice='NON')
         questions = Participation.objects.filter(event_page=self.pk, choice='PEUT-ETRE')
+        instrumentmaxs = InstrumentEventPage.objects.filter(page=self.pk)
         context['instrumentpresences'] = instrumentpresences
         context['presences'] = presences
         context['absences'] = absences
         context['questions'] = questions
+        context['instrumentmaxs'] = instrumentmaxs
         return context  
 
     @property
