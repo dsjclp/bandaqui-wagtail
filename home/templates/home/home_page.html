@@ -50,15 +50,15 @@
 
     <!-- Project One -->
     <div class="row mt-3">
+      <div class="col-md-5">
+        {{ page.cardtext1|richtext }}
+      </div>
       <div class="col-md-7">
         <a href="#">
           {% image page.cardimage1 height-300 as cardphoto1 %}
           <img src="{{ cardphoto1.url }}" width="{{ cardphoto1.width }}"
           height="{{ cardphoto1.height }}" alt="{{ cardphoto1.alt }}" class="card-img-top" />
         </a>
-      </div>
-      <div class="col-md-5">
-        {{ page.cardtext1|richtext }}
       </div>
     </div>
     <!-- /.row -->
@@ -67,9 +67,6 @@
 
     <!-- Project Two -->
     <div class="row">
-      <div class="col-md-7">
-        <div id="macarte" style="height: 300px"></div>
-      </div>
       <div class="col-md-5">
         {{ page.cardtext2|richtext }}
         <h2 class="mb-3">{{ nextevent.title }}</h2> 
@@ -79,6 +76,9 @@
         </ul>
         <h5>à {{ nextevent.location }}</h5> 
       </div>
+      <div class="col-md-7">
+        <div id="macarte" style="height: 300px"></div>
+      </div>
     </div>
     <!-- /.row -->
 
@@ -86,13 +86,13 @@
 
     <!-- Project Three -->
     <div class="row">
+      <div class="col-md-5">
+        {{ page.cardtext3|richtext }}
+      </div>
       <div class="col-md-7">
         {% image page.cardimage3 height-300 as cardphoto3 %}
         <img src="{{ cardphoto3.url }}" width="{{ cardphoto3.width }}"
           height="{{ cardphoto3.height }}" alt="{{ cardphoto3.alt }}" class="card-img-top" />
-      </div>
-      <div class="col-md-5">
-      {{ page.cardtext3|richtext }}
       </div>
     </div>
     <!-- /.row -->
