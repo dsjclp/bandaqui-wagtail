@@ -1,17 +1,7 @@
 from django import template
-from home.models import Instrument
 from home.models import Trombipiece
 
 register = template.Library()
-
-
-# Instrument snippet
-@register.inclusion_tag('home/tags/instruments.html', takes_context=True)
-def instruments(context):
-    return {
-        'instruments': Instrument.objects.all(),
-        'request': context['request'],
-    }
 
 # Trombipiece snippet
 @register.inclusion_tag('home/tags/trombi.html', takes_context=True)

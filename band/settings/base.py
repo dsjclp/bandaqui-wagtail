@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'search',
     
+    'bootstrap_modal_forms',
+    
     'home',
     'events',
     'blog',

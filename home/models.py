@@ -115,73 +115,6 @@ from location_field.models.plain import PlainLocationField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 @register_snippet
-class Instrument(models.Model):  
-    INSTRUMENT_CHOICES = [
-        ('Instrument non précisé', 'Instrument non précisé'),
-        ('Clarinette sib solo', 'Clarinette sib solo'),
-        ('Clarinette mib', 'Clarinette mib'),
-        ('Clarinette sib 1', 'Clarinette sib 1'),
-        ('Clarinette sib 2', 'Clarinette sib 2'),
-        ('Clarinette sib 3A', 'Clarinette sib 3A'),
-        ('Clarinette sib 3B', 'Clarinette sib 3B'),
-        ('Clarinette sib 4', 'Clarinette sib 4'),
-        ('Clarinette sib 5', 'Clarinette sib 5'),
-        ('Clarinette basse 1A', 'Clarinette basse 1A'),
-        ('Clarinette basse 1B', 'Clarinette basse 1B'),
-        ('Clarinette basse 2', 'Clarinette basse 2'),
-        ('Clarinette alto', 'Clarinette alto'),
-        ('Cor de basset', 'Cor de basset'),
-        ('Contrebasse à cordes', 'Contrebasse à cordes'),
-        ('Trompette', 'Trompette'),
-        ('Caisse claire', 'Caisse claire'),
-        ('Grosse caisse', 'Grosse caisse'),
-        ('Saxophone alto', 'Saxophone alto'),
-        ('Saxophone baryton', 'Saxophone baryton'),
-         ('Saxophone soprano', 'Saxophone soprano'),
-        ('Saxophone ténor', 'Saxophone ténor'),
-        ('Soubassophone', 'Soubassophone'),
-        ('Trombone', 'Trombone')
-    ]
-    title = models.CharField(max_length=200,
-        choices=INSTRUMENT_CHOICES,default='Clarinette sib')
-    class Meta:
-        ordering = ('title',)
-    
-    panels = [
-        FieldPanel('title'),
-    ]
-
-    def __str__(self):
-        return self.title
-
-@register_snippet
-class Participation(models.Model):
-    event_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        related_name='+',
-    )
-    PARTICIPATION_CHOICES = [
-    ('OUI', 'J y serai'),
-    ('NON', 'Je n y serai pas'),
-    ('PEUT-ETRE', 'Je ne suis pas sûr'),  
-    ]
-    choice = models.CharField(max_length=9,choices=PARTICIPATION_CHOICES, default='OUI')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name='instrumentparticipations')
-    iswaiting = models.BooleanField('is waiting status', default=False)
-    
-    class Meta:
-        ordering = ('instrument',)
-        verbose_name = u'Inscription'
-        verbose_name_plural = u'Inscriptions'
-
-    def __str__(self):
-        return '%s %s %s %s' % (self.event_page,self.instrument,self.user,self.choice)
-
-@register_snippet
 class Video(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -308,43 +241,6 @@ class FormPage(AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
-
-
-from django import forms
-
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail_blocks.blocks import HeaderBlock, ListBlock, ImageTextOverlayBlock, CroppedImagesWithTextBlock, \
-    ListWithImagesBlock, ThumbnailGalleryBlock, ChartBlock, MapBlock, ImageSliderBlock
-class BookPage(Page):
-    book_file = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    body = StreamField(
-        BaseStreamBlock(), verbose_name="Page body", blank=True
-    )
-    body3 = StreamField([
-        ('header', HeaderBlock()),
-        ('list', ListBlock()),
-        ('image_text_overlay', ImageTextOverlayBlock()),
-        ('cropped_images_with_text', CroppedImagesWithTextBlock()),
-        ('list_with_images', ListWithImagesBlock()),
-        ('thumbnail_gallery', ThumbnailGalleryBlock()),
-        ('chart', ChartBlock()),
-        ('map', MapBlock()),
-        ('image_slider', ImageSliderBlock()),
-    ], blank=True)
-    collection = models.ForeignKey(
-        Collection,
-        limit_choices_to=~models.Q(name__in=['Root']),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        help_text='Select the image collection for this gallery.'
-    )
 
 from wagtail.embeds.blocks import EmbedBlock
 class VideosIndexPage(Page):

@@ -5,8 +5,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="La Band'Aqui, la banda de Lanton sur le Bassin d'Arcachon">
+    <meta name="keywords" content="Band'Aqui, banda, Lanton, Bassin d'Arcachon">
 
     <title>
       {% block title %}
@@ -112,7 +112,7 @@
       
   {# Global javascript #}
   <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
   <!-- Openstreetmap-->
@@ -131,7 +131,7 @@
 
   <!-- Messages -->
   <script>
-    $(function () {
+    $(function () { 
     // Hide message
     $(".alert").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert").slideUp(500);});

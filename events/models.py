@@ -13,17 +13,94 @@ import json
 from django.shortcuts import render
 from django.utils import timezone
 from wagtail.search import index
-from icalendar import Calendar, Event, vText
+
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 import pytz
 import django.http
 from typing import Union
 
+from wagtail.snippets.models import register_snippet
+
+from django.conf import settings
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = settings.AUTH_USER_MODEL
+
 from location_field.models.plain import PlainLocationField
 
-from home.models import Participation
-from home.models import Instrument
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+@register_snippet
+class Instrument(models.Model):  
+    INSTRUMENT_CHOICES = [
+        ('Instrument non précisé', 'Instrument non précisé'),
+        ('Clarinette sib solo', 'Clarinette sib solo'),
+        ('Clarinette mib', 'Clarinette mib'),
+        ('Clarinette sib 1', 'Clarinette sib 1'),
+        ('Clarinette sib 2', 'Clarinette sib 2'),
+        ('Clarinette sib 3A', 'Clarinette sib 3A'),
+        ('Clarinette sib 3B', 'Clarinette sib 3B'),
+        ('Clarinette sib 4', 'Clarinette sib 4'),
+        ('Clarinette sib 5', 'Clarinette sib 5'),
+        ('Clarinette basse 1A', 'Clarinette basse 1A'),
+        ('Clarinette basse 1B', 'Clarinette basse 1B'),
+        ('Clarinette basse 2', 'Clarinette basse 2'),
+        ('Clarinette alto', 'Clarinette alto'),
+        ('Cor de basset', 'Cor de basset'),
+        ('Contrebasse à cordes', 'Contrebasse à cordes'),
+        ('Trompette', 'Trompette'),
+        ('Caisse claire', 'Caisse claire'),
+        ('Grosse caisse', 'Grosse caisse'),
+        ('Saxophone alto', 'Saxophone alto'),
+        ('Saxophone baryton', 'Saxophone baryton'),
+         ('Saxophone soprano', 'Saxophone soprano'),
+        ('Saxophone ténor', 'Saxophone ténor'),
+        ('Soubassophone', 'Soubassophone'),
+        ('Trombone', 'Trombone')
+    ]
+    title = models.CharField(max_length=200,
+        choices=INSTRUMENT_CHOICES,default='Clarinette sib')
+    class Meta:
+        ordering = ('title',)
+    
+    panels = [
+        FieldPanel('title'),
+    ]
+
+    def __str__(self):
+        return self.title
+
+@register_snippet
+class Participation(models.Model):
+    event_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='+',
+    )
+    PARTICIPATION_CHOICES = [
+    ('OUI', 'J y serai'),
+    ('NON', 'Je n y serai pas'),
+    ('PEUT-ETRE', 'Je ne suis pas sûr'),  
+    ]
+    choice = models.CharField(max_length=9,choices=PARTICIPATION_CHOICES, default='OUI')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name='instrumentparticipations')
+    iswaiting = models.BooleanField('is waiting status', default=False)
+    
+    class Meta:
+        ordering = ('instrument',)
+        verbose_name = u'Inscription'
+        verbose_name_plural = u'Inscriptions'
+
+    def __str__(self):
+        return '%s %s %s %s' % (self.event_page,self.instrument,self.user,self.choice)
+
 
 from django.db.models import  Q, Count
 
@@ -239,7 +316,7 @@ class EventCalPage(RoutablePageMixin, Page):
                                         help_text=_('Categories this event belongs to'), verbose_name=_('Categories'))
     """Optional category that a specific calendar entry may belong to"""
 
-    instruments = models.ManyToManyField('home.Instrument', through='events.instrumentEventPage', blank=True,
+    instruments = models.ManyToManyField('Instrument', through='events.instrumentEventPage', blank=True,
                                         help_text=_('Instruments this event belongs to'), verbose_name=_('Instruments'))
     
 

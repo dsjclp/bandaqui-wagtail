@@ -77,6 +77,12 @@
         </ul>
       {% endif %}
 
+      <table class="table" id="participationajax-table">
+        <tbody>
+          {% include 'events/includes/partial_participationajax_list.html' %}
+        </tbody>
+      </table>
+
       <h5>Lieu</h5>
       {% if page.location %}
       <ul class="list-unstyled">
@@ -100,14 +106,15 @@
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
 
-      <!-- Search Widget -->
+    <!-- Inscriptions -->
       <div class="card mb-4">
         <h5 class="card-header">Inscriptions</h5>
         <div class="card-body">
           <div class="row">
             <div class="col-12 mb-3">
               <button class="create-participation btn btn-primary" type="button" name="button">
-                <span class="fa fa-plus mr-2"></span>Inscrivez vous</button>
+                <span class="fa fa-plus mr-2"></span>Inscrivez vous
+              </button>
             </div>
               <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
@@ -115,6 +122,27 @@
                   </div>
                 </div>
               </div>
+          </div>
+        </div>
+      </div>
+    
+    <!-- Inscriptions -->
+      <div class="card mb-4">
+        <h5 class="card-header">Inscriptions ajax</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 mb-3">
+              <button type="button" class="btn btn-primary js-create-participationajax" data-url="{% url 'events:participationajax_create' page.slug %}">
+                <span class="fa fa-plus mr-2"></span>Inscrivez vous
+              </button>
+            </div>
+            <div class="modal fade" id="modal-participationajax">
+              <div class="modal-dialog">
+                <div class="modal-content">
+          
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +198,7 @@
   <script>
       $(function () {
       // Create participation button
-      $(".create-participation").modalForm({formURL: "{% url 'home:create_participation' page.slug %}", modalID: "#create-modal"});
+      $(".create-participation").modalForm({formURL: "{% url 'events:create_participation' page.slug %}", modalID: "#create-modal"});
           // Create map
           var carte = L.map('macarte').setView([{{ page.omap }}], 12);
           var marker = L.marker([{{ page.omap }}]).addTo(carte);
@@ -178,6 +206,59 @@
               attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
             }).addTo(carte);
         });
+  </script>
+
+  <script>
+
+$(function () {
+
+  /* Functions */
+
+  var loadForm = function () {
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-participationajax .modal-content").html("");
+        $("#modal-participationajax").modal("show");
+      },
+      success: function (data) {
+        $("#modal-participationajax .modal-content").html(data.html_form);
+      }
+    });
+  };
+
+  var saveForm = function () {
+    var form = $(this);
+    $.ajax({
+      url: form.attr("action"),
+      data: form.serialize(),
+      type: form.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        $("#participationajax-table").html(data.html_participationajax_list);
+        if (data.form_is_valid) {
+          $("#participationajax-table tbody").html(data.html_participationajax_list);
+          $("#modal-participationajax").modal("hide");
+        }
+        else {
+          $("#modal-participationajax .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  };
+
+
+  /* Binding */
+
+  // Create participationajax
+  $(".js-create-participationajax").click(loadForm);
+  $("#modal-participationajax").on("submit", ".js-participationajax-create-form", saveForm);
+});
+
   </script>
     
 {% endblock %}
