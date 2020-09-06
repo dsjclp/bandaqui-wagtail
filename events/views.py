@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from .forms import ParticipationForm
 from .forms import Participation2Form
 from .models import Participation
+from .models import Instrument
+from .models import InstrumentEventPage
+
 
 from bootstrap_modal_forms.generic import (BSModalLoginView,
                                            BSModalCreateView,
@@ -16,6 +19,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 
 from django.template.loader import render_to_string
+
+from django.db.models import  Q, Count
 
 
 class ParticipationCreateView(BSModalCreateView):
@@ -31,7 +36,6 @@ class ParticipationCreateView(BSModalCreateView):
             #suppression des anciennes inscriptions du même utilisateur pour le même événement
             oldparticipations = Participation.objects.filter(event_page=event_name, user=self.request.user)
             oldparticipations.delete()
-            #
             form.instance.event_page = event_name
             return super().form_valid(form)
 
@@ -60,14 +64,17 @@ def save_participationajax_form(request, form, eventid, template_name):
             oldparticipations.delete()
             form.save()
             data['form_is_valid'] = True
-            participationajaxs = Participation.objects.all()
-            print (participationajaxs)
+            participationajaxs = Participation.objects.filter(event_page=event)
+            instrumentpresences = Instrument.objects.annotate(num_participations=Count('instrumentparticipations',filter=Q(instrumentparticipations__choice='OUI', instrumentparticipations__event_page=event)))
+            presences = Participation.objects.filter(event_page=event, choice='OUI')
+            absences = Participation.objects.filter(event_page=event, choice='NON')
+            questions = Participation.objects.filter(event_page=event, choice='PEUT-ETRE')
+            instrumentmaxs = InstrumentEventPage.objects.filter(page=event)
             data['html_participationajax_list'] = render_to_string('events/includes/partial_participationajax_list.html', {
-                'participationajaxs': participationajaxs
+'instrumentpresencesajax': instrumentpresences, 'presencesajax': presences
             })
         else:
             data['form_is_valid'] = False
     context = {'form': form}
     data['html_form'] = render_to_string(template_name, context, request=request)
     return JsonResponse(data)
-    success_message = 'Inscription enregistrée, merci !'

@@ -34,6 +34,8 @@ from location_field.models.plain import PlainLocationField
 
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from django.db.models import  Q, Count
+
 @register_snippet
 class Instrument(models.Model):  
     INSTRUMENT_CHOICES = [
@@ -101,10 +103,6 @@ class Participation(models.Model):
     def __str__(self):
         return '%s %s %s %s' % (self.event_page,self.instrument,self.user,self.choice)
 
-
-from django.db.models import  Q, Count
-
-# Create your models here.
 
 class EventCalendar(RoutablePageMixin, Page):
     """

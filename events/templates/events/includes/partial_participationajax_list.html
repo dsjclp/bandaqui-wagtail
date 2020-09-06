@@ -1,12 +1,20 @@
-{% for participationajax in participationajaxs %}
+
+<tbody>
+
+  {% if presencesajax %}
+    {% for instrumentpresence in instrumentpresencesajax %}
+    <tr>
+      <td> {{ instrumentpresence.num_participations}} présent(s) en {{ instrumentpresence}}</td>
+    </tr>
+    {% endfor %}
+  {% endif %}
+  
+  {% for vote in presencesajax %}
   <tr>
-    <td>{{ participationajax.user }}</td>
-    <td>{{ participationajax.event_page }}</td>
-    <td>{{ participationajax.instrument }}</td>
-    <td>{{ participationajax.choice }}</td>
+    {% if vote.user.first_name %}
+    <td>{{ vote.user.first_name}},&nbsp;</td>
+    {% endif %}
   </tr>
-{% empty %}
-  <tr>
-    <td colspan="8" class="text-center bg-warning">No book</td>
-  </tr>
-{% endfor %}
+  {% endfor %}
+
+</tbody>

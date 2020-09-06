@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     'location_field.apps.DefaultConfig',
     'widget_tweaks',
-    'django_social_share',
+
     'django.contrib.sitemaps',
     'search',
     
@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
+
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 

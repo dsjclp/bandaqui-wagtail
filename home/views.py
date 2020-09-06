@@ -2,11 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from bootstrap_modal_forms.generic import (BSModalLoginView,
-                                           BSModalCreateView,
-                                           BSModalUpdateView,
-                                           BSModalReadView,
-                                           BSModalDeleteView)
+from bootstrap_modal_forms.generic import (BSModalLoginView)
 from wagtail.core.models import Page
 
 

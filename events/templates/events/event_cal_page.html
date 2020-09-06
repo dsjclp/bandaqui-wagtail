@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static wagtailcore_tags wagtailimages_tags social_share i18n %}
+{% load static wagtailcore_tags wagtailimages_tags  i18n %}
 
 {% block content %}
 
@@ -32,7 +32,8 @@
         <h6><li><i class="far fa-clock"></i> Fin : {{ page.end_dt }}</li></h6>
       </ul>
 
-      <h5>Inscriptions déjà enregistrées</h5>
+  
+      <div id="participation-table">
       <ul class="list-unstyled" id="participation">
         {% if presences %}
         <li><i class="far fa-user"></i> Présents : 
@@ -65,22 +66,10 @@
         </li>
         {% endif %}
       </ul>
-
-      {% if instrumentmaxs %}
-        <h5>Maximum souhaité pour certains instruments</h5>
-        <ul class="list-unstyled" id="participation">
-          <li><i class="far fa-laugh-wink"></i> Maximum souhaité : 
-            {% for instrumentmax in instrumentmaxs %}
-              En {{ instrumentmax.instrument}}: &nbsp;pas plus de {{ instrumentmax.nbmax}},
-            {% endfor %}
-          </li>
-        </ul>
-      {% endif %}
+    </div>
 
       <table class="table" id="participationajax-table">
-        <tbody>
           {% include 'events/includes/partial_participationajax_list.html' %}
-        </tbody>
       </table>
 
       <h5>Lieu</h5>
@@ -238,6 +227,7 @@ $(function () {
       type: form.attr("method"),
       dataType: 'json',
       success: function (data) {
+        $("#participation-table").html(' ');
         $("#participationajax-table").html(data.html_participationajax_list);
         if (data.form_is_valid) {
           $("#participationajax-table tbody").html(data.html_participationajax_list);
