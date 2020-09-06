@@ -71,7 +71,7 @@ def save_participationajax_form(request, form, eventid, template_name):
             questions = Participation.objects.filter(event_page=event, choice='PEUT-ETRE')
             instrumentmaxs = InstrumentEventPage.objects.filter(page=event)
             data['html_participationajax_list'] = render_to_string('events/includes/partial_participationajax_list.html', {
-'instrumentpresencesajax': instrumentpresences, 'presencesajax': presences
+'instrumentpresencesajax': instrumentpresences, 'presencesajax': presences, 'instrumentmaxsajax': instrumentmaxs
             })
         else:
             data['form_is_valid'] = False

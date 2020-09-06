@@ -32,45 +32,43 @@
         <h6><li><i class="far fa-clock"></i> Fin : {{ page.end_dt }}</li></h6>
       </ul>
 
-  
-      <div id="participation-table">
-      <ul class="list-unstyled" id="participation">
-        {% if presences %}
-        <li><i class="far fa-user"></i> Présents : 
-          {% for instrumentpresence in instrumentpresences %}
-            {% if instrumentpresence.num_participations != 0 %}
-              {{ instrumentpresence.num_participations}} en {{ instrumentpresence}},&nbsp;
-            {% endif %}
-          {% endfor %}
-            (
-            {% for vote in presences %}
-              {% if vote.user.first_name %}
-                {{ vote.user.first_name}},&nbsp;
-              {% endif %}
+      <table class="table"  id="participationajax-table">
+        <tbody>
+          <tr>
+            {% if instrumentmaxs %}
+            <h5>Maximum souhaité pour certains instruments</h5>
+            <ul class="list-unstyled" id="participation">
+              <li><i class="far fa-laugh-wink"></i> Maximum souhaité : 
+                {% for instrumentmax in instrumentmaxs %}
+                  En {{ instrumentmax.instrument}}: &nbsp;pas plus de {{ instrumentmax.nbmax}},
+                {% endfor %}
+              </li>
+            </ul>
+          {% endif %}
+          </tr>
+          {% if presences %}
+          <h5>Inscriptions déjà enregistrées</h5>
+            {% for instrumentpresence in instrumentpresences %}
+            <tr>
+              <td> {{ instrumentpresence.num_participations}} présent(s) en {{ instrumentpresence}}</td>
+            </tr>
             {% endfor %}
-            )
-        </li>
-        {% endif %}
-        {% if absences %}
-        <li><i class="far fa-user"></i> Absents : 
-          {% for vote in absences %}
-            {{ vote.user.first_name}}&nbsp;
-          {% endfor %}
-        </li>
-        {% endif %}
-        {% if questions %}
-        <li><i class="far fa-user"></i> Incertains : 
-          {% for vote in questions %}
-            {{ vote.user.first_name}},&nbsp;
-          {% endfor %}
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+            <tr>
+              <td>
+                Les présents :
+                {% for vote in presences %}
+                  {% if vote.user.first_name %}
+                  {{ vote.user.first_name}},
+                  {% endif %}
+                {% endfor %}
+              </td>
+            </tr>
+          {% endif %}
 
-      <table class="table" id="participationajax-table">
-          {% include 'events/includes/partial_participationajax_list.html' %}
-      </table>
+          </tbody>
+        </table>
+
+
 
       <h5>Lieu</h5>
       {% if page.location %}

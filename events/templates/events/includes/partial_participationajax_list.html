@@ -1,20 +1,19 @@
-
 <tbody>
-
+  
   {% if presencesajax %}
     {% for instrumentpresence in instrumentpresencesajax %}
     <tr>
       <td> {{ instrumentpresence.num_participations}} présent(s) en {{ instrumentpresence}}</td>
+      <td>
+        {% for vote in presencesajax %}
+          {% if vote.user.first_name %}
+          {{ vote.user.first_name}}
+          {% endif %}
+        {% endfor %}
+      </td>
     </tr>
     {% endfor %}
+
   {% endif %}
   
-  {% for vote in presencesajax %}
-  <tr>
-    {% if vote.user.first_name %}
-    <td>{{ vote.user.first_name}},&nbsp;</td>
-    {% endif %}
-  </tr>
-  {% endfor %}
-
 </tbody>
